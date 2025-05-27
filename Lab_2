@@ -1,0 +1,185 @@
+# d - funkcja rozkladu
+# p - wartosc dystrybuanty
+
+# geometryczny
+# mianowy
+# ktory z rozkladow wybrac
+
+# zadanie 1
+
+# dwumianowy
+# wszystkie mozliwosci: 5
+
+# 3/7 sukcesu
+# ktore nie zrobilo zadania
+# rozklad prawdopodobienstwa - wszystkie mozliwe prawdopodobienstwa ktore sa
+
+# w funkcji dbinom zadajemy: ilość sukcesów, ilość prób, prawdopodobieństwo sukcesu 
+
+dbinom(0,5,3/7)
+
+#Zadanie 1 
+# w funkcji dbinom zadajemy: ilość sukcesów, ilość prób, prawdopodobieństwo sukcesu 
+dbinom(0,5,3/7)
+#teraz przeprowadzimy analizę dla wszystkich możliwych sukcesów 
+dbinom(0:5,5,3/7) 
+#przedstawimy to w postaci macierzowej 
+rozklad=rbind(x_i=0:5, p_i=dbinom(0:5,5,3/7)) 
+#sprawdzamy czy wszystkie prawdopodobieństwa sumują się do 1 
+sum(dbinom(0:5,5,3/7))
+
+
+# zadanie 2
+
+# jakie jest prawdopodobienstwo ze sposrod 3 dzieci dwoje urodzi sie w srode 
+
+# wszystkie proby: 3 
+
+# sukcesy: 2
+
+# prawdopodobienstwo: 1/7
+
+dbinom(2,3,1/7)
+
+# zadanie 3
+# geometryczny - liczba sukcesow
+
+#Zadanie 3 ------------------------------------------------------------------- (bedzie na kolokwium) 
+#w funkcji dgeom zadajemy: ilość porażek, prawdopodobieństwo sukcesu 
+#P(X=5) pięć porażek bo szósty jest sukces 
+dgeom(5,0.003)
+
+# zadanie 4
+# geometryczny - liczba porazek
+
+# prawdopodobienstwo uszkodzenia: 0.002
+
+# liczba elementow: 300
+
+# a) uszkodzenie 3 elementów
+
+dbinom()
+
+# Poissona (trzy warunki musza byc spelnione)
+
+dpois(3, (300*0.002))
+
+# wyniki sa zbiezne wiec mozna korzystac z obu metod
+
+# b) uszkodzenie nie wiecej niz trzech elementow
+
+pbinom()
+
+# Poissona (trzy warunki musza byc spelnione)
+
+ppois()
+
+# wyniki sa zbiezne wiec mozna korzystac z obu metod
+
+# Obliczenia do wtryskarki:
+n_wtrysk <- 300
+p_wtrysk <- 0.002
+lambda_wtrysk <- n_wtrysk * p_wtrysk
+
+# a) Prawdopodobieństwo uszkodzenia dokładnie 3 elementów (przybliżone rozkładem Poissona)
+p_dokladnie_3 <- dpois(3, lambda_wtrysk)
+
+# b) Prawdopodobieństwo uszkodzenia nie więcej niż 3 elementów (przybliżone rozkładem Poissona)
+p_nie_wiecej_niz_3 <- ppois(3, lambda_wtrysk)
+
+cat("\nPrawdopodobieństwo (dokładnie 3):", p_dokladnie_3)
+cat("\nPrawdopodobieństwo (nie więcej niż 3):", p_nie_wiecej_niz_3, "\n")
+
+# Prawdopodobieństwo, że liczba uszkodzonych kości będzie większa niż 3:
+p_uszkodzone_wiecej_niz_3 <- 1 - pbinom(3, 600, 0.004)
+
+cat("Prawdopodobieństwo (liczba uszkodzonych > 3):", p_uszkodzone_wiecej_niz_3, "\n")
+
+# zadanie 5
+
+# wadliwosc: 0.4%
+# liczba kosci pamieci: 600
+
+pbinon()
+
+# albo 
+
+sum(dbinon())
+
+#Zadanie 5 
+# P(X>3) = 0.2210252 
+sum(dbinom(4:600,600,0.004))
+# 1-F(3) = 1-P(X<=3) 
+1-pbinom(3,600,0.004)
+#lub 
+pbinom(3,600,0.004, lower.tail=FALSE)
+#lub 
+pbinom(3,600,0.004,0)
+
+# zadanie 6
+
+# geometryczny
+
+# prawdopodobienstwo ze wypadna trzy orly: 1/8
+
+# liczba sukcesow: 6*7*8*...
+
+# liczba porazek: 4
+
+pgeom(4,1/8,0)
+
+#Zadanie 6  
+
+# geometryczny
+
+1-pgeom(4,1/8) 
+#lub 
+pgeom(4,1/8,0)
+
+# zadanie 7
+# dwumianowy
+# n = 650 lamp wszytskie mozliwosci
+
+# p = prawdopodobienstwo: 0.003
+
+1-pbinom(1, 650, 0.003)
+
+# P(X>=2) = 0.5806874 
+sum(dbinom(2:650,650,0.003)) 
+# 1-F(1) = 1-P(X<=1) 
+1-pbinom(1,650,0.003) 
+# P(X>1) 
+pbinom(1,650,0.003,0)
+
+#zadanie 7
+# n = 650 p= 0.003  lambda = n*p=1.95
+# ppois(conajmniej 2 , lambda)
+1 - ppois(1,1.95)
+
+# zadanie 8
+
+# geometryczny
+
+# prawdopodobienst: 1/9 (4/36)
+
+# a) w trzecim rzucie
+
+dgeom(2,1/9)
+
+#ZADANIE 8
+#podpunkt a - w trzecim rzucie
+#6*6=36, kombinacje: 55,56,65,55, czyli 4/36=1/9
+dgeom(2,1/9)
+
+# b) w conajmniej drugim, ale nie pozniej niz w siodmym rzucie
+
+# 2, 3, 4, 5, 6, 7 (od 2 do 7)
+
+
+
+
+# zadanie 9
+
+
+
+
