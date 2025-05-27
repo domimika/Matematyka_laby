@@ -1,0 +1,119 @@
+# zadanie 1
+
+# a)
+4 * 5^2 + log(30, 3)
+
+
+# b)
+7^(1/5)
+
+# c)
+(6^(1/7))^(1/3)
+
+#zadanie 2
+
+# MACIERZ A
+
+# 1 sposob tworzenia macierzy
+W1 = c(3, 2, -1) # wiersz pierwszy
+W2 = c(4, 1, 0) # wiersz drugi
+A1 = rbind(W1, W2) # LACZYMY WIERSZE W CALOSC (w macierz)
+
+# 2 sposob tworzenia macierzy
+k1 = c(3, 4)
+k2 = c(2, 1)
+k3 = c(-1, 0)
+A2 = rbind(k1, k2, k3)
+
+# 3 sposob
+A = matrix(c(3, 4, 2, 1, -1, 0), 2, 3) # --> MACIERZ A 
+
+# MACIERZ B
+
+W1 = c(7, 2, 12) # wiersz pierwszy
+W2 = c(-11, -6, 1) # wiersz drugi
+W3 = c(3, -2, 3) # wiersz trzeci
+
+B = rbind(W1, W2, W3) # --> MACIERZ B
+
+# WYZNACZNIKI
+# A
+det(A) # --> nie wyjdzie bo musi byc kwadrtatowa maciewrz
+
+# B
+det(B) # --> wyjdzie bo musi byc kwadrtatowa maciewrz
+
+# ODWROTNE MACIERZE
+# A
+solve(A)
+
+# B
+solve(B)
+
+# TRANSPONOWANE I WYZNACZNIKI
+t(A)
+det(t(A))
+
+t(B)
+det(t(B))
+
+# ILOCZYN MACIERZY A I B
+A %*% B
+B %*% A # NIE WOLNO
+A %*% A # NIE WOLNO
+B %*% B
+
+# ILOCZYN SKALARNY
+
+# wiersz pierwszy macierzy A
+# W1 = c(3, 2, -1) 
+A[1,]
+
+# druga kolumna macierzy B
+# V2 = c(2, -6, -2)
+B[,2]
+
+A[1,] %*% B[,2]
+
+#zadanie 3
+
+# 2 4 -3 1 # 71
+# 3 -2 8 -11 # -20
+# 1 3 2 5 # 26
+# 4 -3 -5 -3 # 49
+
+A = matrix(c(2, 3, 1, 4, 4, -2, 3, -3, -3, 8, 2, -5, 1, -11, 5, -3), 4, 4) # --> niewiadome
+B = matrix(c(71, -20, 26, 49), 4, 1) # --> wyrazy wolne
+
+solve(A, B)
+
+#zadanie 4 (????????????????????????????????????????????????????????????????)
+
+v_1 <- (1:80)^2
+jed <- v_1 %% 10
+w <- factor(jed)
+wynik <- summary(w)
+
+#zadanie 5 (????????????????????????????????????????????????????????????????)
+
+rad = function(stopnie) 
+{
+  stopnie*pi/180
+}
+
+stopnie = seq(30, 60, by = 5)
+
+tablica = data.frame(
+  stopnie,
+  sin = sin(rad(stopnie)),
+  cos = cos(rad(stopnie)),
+  tan = tan(rad(stopnie)),
+  ctan = 1/(tan(rad(stopnie)))
+)
+
+#zadanie 6 (????????????????????????????????????????????????????????????????)
+
+lit <- rep(c("X", "Y", "Z"), length.out=40)
+nums <- 1:40
+lan <- paste(lit, nums, sep=".")
+print(noquote(lan))
