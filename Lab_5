@@ -1,0 +1,135 @@
+# zadanie 1
+
+parametry.opisowe = function(x)
+{
+  rbind(
+    srednia = mean(x), 
+    kwartyl.1 = quantile(x, 0.25), # wartosc liczbowa ponizej kotra jest 25 procent populacji
+    mediana = median(x), # wartosc srodkowa
+    kwartyl.3 = quantile(x, 0.75), # wartosc liczbowa ponizej kotra jest 75 procent populacji
+    min = min(x),
+    max = max(x),
+    rozstep.empiryczny = max(x) - min(x), # jaki przedzial danych
+    rozstep.miedzykwartylowy = IQR(x), # kwartyl.3 - kwartyl.1
+    wariancja = var(x), # srednie kwadratowe odchylenie od sredniej
+    odchylenie.standardowe = sd(x), # pierwiastek wariancji
+
+    wspolczynnik.zmiennosci = sd(x)/mean(x), # pierwiastek wariancji podzielic na srednia 
+    # (ktora probka jest bardziej zroznicowana)
+    
+    wspolczynnik.asymetrii = skewness(x), 
+    # czy wartosc jest dodatnia czy ujemna 
+    # (dodatnia - prawostronna asymetria, ujemna - lewostronna asymetria)
+    
+    wspolczynnik.skupienia = kurtosis(x) 
+    # kurtoza, wartosc rowna 3 dla ukladu normalnego
+    # mniej skupiony - ponizej 3
+    # bardziej skupiony - ponizej 3
+    )
+}
+
+# zadanie 2 
+# --------------------------------------------------------- WAGA
+
+# srednia - średnia waga zbadanych mężczyzn wynosi 74.01 kg 
+# kwartyl.1 - waga 25% mężczyzn nie przekracza 64.75 kg 
+# mediana - waga 50% mężczyzn nie przekracza 73.5 kg 
+# kwartyl.3 - waga 75% mężczyzn nie przekracza 81 kg 
+# min, max - waga minimalna wynosi 45 kg, a maksymalna 104 kg 
+# rozstep.empiryczny - waga mężczyzn zmienia się w zakresie 59 kg 
+# rozstep.miedzykwartylowy - 50% środkowych wartości wagi zmienia się w zakresie 16.25 kg 
+# wariancja - przeciętne kwadratowe odchylenie wagi mężczyzn od średniej wynosi 151.55 kg^2 
+# odchylenie.standardowe - przeciętne odchylenie wagi mężczyzn od średniej wynosi 12.31 kg 
+# wspolczynnik.zmiennosci - odchylenie standardowe wagi mężczyzn stanowi 16.63 % średniej 
+# wspolczynnik.asymetrii - rozkład wagi mężczyzn jest prawostronnie asymetryczny, gdyż wsp. as. jest dodatni 
+# wspolczynnik.skupienia - rozkład wagi mężczyzn jest słabiej skupiony wokół średniej niż w rozkładzie normalnym, 
+# gdyż kurtoza jest mniejsza niż 3
+
+# a)
+
+parametry.opisowe(Ankieta.M$Waga)
+
+
+# b)
+hist(Ankieta.M$Waga)
+ggplot (Ankieta.M, aes(`Waga [kg]`)) +   geom_histogram (fill = "red", col = "black", binwidth = 10) +   ylab ("Liczność")
+
+# c) wykres lodyga liscie 
+# pogrupowane dane glowna liczba oddzielona od innej kreska - cos jak histogram, pozycja w prawa strone,
+
+stem(Ankieta.M$Waga)
+
+# d) ramka-wąsy
+# mediana wagi mezczyzn jest wieksz od mediany wagi kobiet
+# wartosc minimalna jest na podobnym poziomie
+
+#d 
+boxplot(Ankieta.M$Waga)
+ggplot (Ankieta, aes (x = Płeć, y = `Waga [kg]` )) +   geom_boxplot (fill = c("lightpink","lightblue"), col = "black")
+
+
+# ---------------------------------------------------------WZROST
+# a) 
+# srednia - średnia waga zbadanych mężczyzn wynosi 180.54 cm 
+# kwartyl.1 - waga 25% mężczyzn nie przekracza 177.00 cm
+# mediana - waga 50% mężczyzn nie przekracza 180.00 cm
+# kwartyl.3 - waga 75% mężczyzn nie przekracza 185.00 cm 
+# min, max - waga minimalna wynosi  163.00 cm a maksymalna 195.00 cm
+# rozstep.empiryczny - waga mężczyzn zmienia się w zakresie 32.00 cm 
+# rozstep.miedzykwartylowy - 50% środkowych wartości wagi zmienia się w zakresie  8.00 cm
+
+# wariancja - przeciętne kwadratowe odchylenie wagi mężczyzn od średniej wynosi 37.47 cm^2 
+# odchylenie.standardowe - przeciętne odchylenie wagi mężczyzn od średniej wynosi 6.12 cm
+# wspolczynnik.zmiennosci - odchylenie standardowe wagi mężczyzn stanowi 0.034 średniej 
+# wspolczynnik.asymetrii - rozkład wagi mężczyzn jest lewostronnie asymetryczny, gdyż wsp. as. jest ujemna
+# wspolczynnik.skupienia - rozkład wagi mężczyzn jest bardziej skupiony wokół średniej niż w rozkładzie normalnym, 
+# gdyż kurtoza jest większa niż 3
+
+parametry.opisowe(Ankieta.M$`Wzrost [cm]`)
+
+# srednia                 180.54166667
+#kwartyl.1                177.00000000
+#mediana                  180.00000000
+#kwartyl.3                185.00000000
+#min                      163.00000000
+#max                      195.00000000
+#rozstep.empiryczny        32.00000000
+#rozstep.miedzykwartylowy   8.00000000
+#wariancja                 37.47192982
+#odchylenie.standardowe     6.12143201
+#wspolczynnik.zmiennosci    0.03390592
+#wspolczynnik.asymetrii    -0.10434726
+#wspolczynnik.skupienia     3.08258063
+
+# b)
+hist(Ankieta.M$Waga)
+ggplot (Ankieta.M, aes(`Wzrost [cm]`)) +   geom_histogram (fill = "red", col = "black", binwidth = 10) +   ylab ("Liczność")
+
+# c) wykres lodyga liscie 
+# pogrupowane dane glowna liczba oddzielona od innej kreska - cos jak histogram, pozycja w prawa strone,
+
+stem(Ankieta.M$`Wzrost [cm]`)
+
+# d) ramka-wąsy
+# mediana wagi mezczyzn jest wieksz od mediany wagi kobiet
+# wartosc minimalna jest na podobnym poziomie
+
+#d 
+boxplot(Ankieta.M$`Wzrost [cm]`)
+ggplot (Ankieta, aes (x = Płeć, y = `Wzrost [cm]` )) +   geom_boxplot (fill = c("lightpink","lightblue"), col = "black")
+
+
+#Zadanie 3
+table(cut(Ankieta.M$Wzrost,c(160,170,180,190,200)))
+Wzrost.środki=c(165,175,185,195) #srodki przedziualow
+Wzrost.wagi=c(8,42,42,4) #// ile elementow w przedziale
+Wzrost.szereg = #rep(Wzrost.środki,Wzrost.wagi) // powtarza konkretny element zadana liczbe razy
+parametry.opisowe(Wzrost.szereg) # powstal sztuczny tymczasowy wektor i je sobie ogladamy
+# zamiast danych pozbieranych, chcemy podzial zaproponowac, punkty wpadaja do przedzialow, 
+# liczymy kropeczki, w stuczny sposob tworzymy wektor
+# czy takie stuczne wprowadzone dane (przyblizone) do srodka pewnego przedzialu cos zmieniaja
+
+# dokladnie nie to samo ale nie istotnie odmienne wyniki ;) 
+# ale bledy sa (np odchylenie standardowe)
+
+# zadanie 4
