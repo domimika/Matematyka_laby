@@ -1,0 +1,171 @@
+# ROZKLAD TYPU CIOAGLEGO
+
+# packages --> ggplot2 --> plots (dla rysowania wykresow trzeba wlaczyc ten pakiet)
+
+------------------------------------------------ #a) rozkład normalny N(0,1) 
+ggplot(data.frame(x=c(-5,5)), aes(x))+   
+  stat_function(fun=dnorm,col="blue",size=1.25)+   
+  ylab("Gęstość rozkładu normalnego N(0,1)") 
+#u~N(0,1)
+
+# ROZKLAD POSTACI
+# N(0,1)
+# 0 - srednia,
+# 1 - odchylenie stardandowe
+
+---------------------------------------------------#b) ROZKLAD TYPU T STUDENTA
+ggplot(data.frame(x=c(-5,5)), aes(x))+   
+  stat_function(fun=dt,args=list(df=18),col="green",size=1.25)+   
+  ylab("Gęstość rozkładu t Studenta")
+
+# df - > stopnie swobody
+
+----------------------------------------------------#c) ROZKLAD CHI KWADRAT
+ggplot(data.frame(x=c(-2,75)), aes(x))+   
+  stat_function(fun=dchisq,args=list(df=20),col="red",size=1.25)+   
+  ylab("Gęstość rozkładu chi kwadrat")
+
+# df - > stopnie swobody
+
+------------------------------------------------------#d) ROZKLAD FISHERA
+ggplot(data.frame(x=c(-2,7)), aes(x))+   
+  stat_function(fun=df,args=list(df1=5,df2=24),col="brown",size=1.25)+   
+  ylab("Gęstość rozkładu Fishera")
+
+# df - > stopnie swobody
+
+--------------------------------------------------------------- # ZADANIE 1 
+# kwantyle  
+# - nie ma znaczenie znak > lub >=
+# w rozkladach typu cioaglego prawdopodobienstwo punktowe nie ma sensu, wiekszy obszar lepiej brac
+
+# a)
+qnorm(0.98)
+
+# b)
+qt(0.95,18)
+
+# c) 
+qchisq(0.975,23)
+
+# d) 
+qf(0.99,5,24)
+
+#Zadanie 1 (będzie na kolokwium) 
+#a 
+qnorm(0.98) 
+#odp. 2.053749  
+
+#b 
+qt(0.95,18) 
+#odp. 1.734064  
+
+#c 
+qchisq(0.975,23) 
+#odp. 38.07563  
+
+#d 
+qf(0.99,5,24) 
+#odp. 3.89507
+
+--------------------------------------------------------------- # ZADANIE 2
+
+# a) 
+# 5 - wartosc x, mniejsze niz 5
+# 3 - srednia
+# 6 - odchylenie standardowe
+
+pnorm(5,3,6)
+
+# b)
+
+1-pnorm(4,3,6)
+
+# c)
+
+pnorm(1,3,6)-pnorm(-1,3,6)
+
+# d) 
+
+# e)
+
+# f)
+
+# g)
+
+#Zadanie 2 
+#a 
+pnorm(5,3,6) 
+# F(5) = 0.6305587  
+#b 1-pnorm(4,3,6) 
+# 1-F(4) = 0.4338162 
+pnorm(4,3,6,0)  
+#c 
+pnorm(1,3,6)-pnorm(-1,3,6) 
+#P(-1<X<=1)=F(1)-F(-1)= 0.1169488  
+#d 
+pnorm(4.5,3,6)-pnorm(3.5,3,6) 
+# P(4-0.5<=X<=4+0.5) 
+#F(4.5)-F(3.5) = 0.06549957  
+#e pnorm(3,3,6)-pnorm(7/3,3,6) 
+# P(8-1<3X<8+1) = P(7/3<X<3) 
+#F(3)-F(7/3)=0.04423588  
+#f 
+pnorm(6,3,6,0)+pnorm(-8,3,6) 
+# P(X<=-1-7)+P(X>=-1+7) = F(-8)+1-F(6) = 0.341914  
+#g 
+pnorm(-1/2,3,6)+pnorm(7/2,3,6,0) 
+# P(2X<3-4)+P(2X>3+4) = F(-1/2)+1-F(7/2) = 0.7466277
+
+--------------------------------------------------------------- # ZADANIE 3
+
+#Zadanie 3 (zadanie na kolokwium) 
+# P(X<175) 
+pnorm(175,200,10) 
+10000*pnorm(175,200,10) 
+#62 żarówki 
+round(10000*pnorm(175,200,10))
+
+# ZADANIE 4
+
+# a)
+pnorm(2.3,2.25,0.2,0)*40
+# b)
+
+#Zadanie 4 
+#a) 
+pnorm(2.3,2.25,0.2,0) 
+40*pnorm(2.3,2.25,0.2,0) 
+#16 zawodników 
+#b) 
+qnorm(0.2,2.25,0.2) 
+#pułap 2.08 
+# P(X<x) = 0.2 x-kwantyl rzędu 0.2
+
+
+
+# ZADANIE 5
+
+# c)
+pnorm(15,13,18,0)-pnorm(20,13,18,0)
+
+#zad 5
+# c)
+pnorm(15,13,18,0)-pnorm(20,13,18,0)
+
+# d)
+
+
+#zad 5 
+a) pnorm(15,13,18,0)-pnorm(20,13,18,0)
+b) pnorm(25,13,18,0)
+
+# ZADANIE 6
+#
+#
+#
+#
+#
+#
+
+
