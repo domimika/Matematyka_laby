@@ -1,23 +1,21 @@
+# ESTYMACJA I TESTY DLA JEDNEJ POPULACJI #
+# w każdym teście sformułować hipotezy, podać statystykę, poziom p oraz wniosek
+# -----------------------------------------------------------------------------------------------------------
 
-# ZAD.1. 
+# Zadanie 1 - Wiedząc, że zmienna Wzrost w grupie mężczyzn ma rozkład normalny, na poziomie istotności 0.05 
+# zweryfikować hipotezę, że średni wzrost mężczyzn w populacji generalnej jest większy niż 179 cm (użyć t.test).
+
 # wzrost - uklad normalny (wiemy ze ma wiec lecimy dalej, jak nie to musimy sprawdzic)
 # nie rozklad normalny - weryfikujemy wtedy to!!!!
 # Prawdziwą nieznaną średnią w populacji generalnej oznaczamy literą m
 # sredni wzrost mezczyzn rowny 179 (zawsze rownosc tu musi byc)
 #H0: m = 179 (zawsze równość !!!!)
-
 # Test dla średniej
-
 # H1 - m > 179
-
 t.test(Ankieta.M$`Wzrost [cm]`,mu = 179,alternative ="greater")
-
-#Zadanie 1
-
+# Zadanie 1
 # Prawdziwą nieznaną średnią w populacji generalnej oznaczamy literą m
-
 # Test dla średniej
-
 #H0: m = 179 (zawsze równość !!!!)
 #H1: m > 179 cm 
 t.test(Ankieta.M$Wzrost, mu=179, alternative="greater") 
@@ -26,40 +24,33 @@ t.test(Ankieta.M$Wzrost, mu=179, alternative="greater")
 # Wniosek: alfa = 0.05 >= p, więc odrzucamy hipotezę H0 na korzyść hipotezy alternatywnej, 
 # tzn. na poziomie istotności 0.05 prawdziwa średnia wzrostu mężczyzn w pop.gen 
 # jest istotnie większa od 179 cm
+# -----------------------------------------------------------------------------------------------------------
 
+# Zadanie 2 - Dla zmiennej Waga w grupie mężczyzn:
+# a) na poziomie istotności 0.01 sprawdzić założenie niezbędne do wykonania punktów b-d
+# b) wyznaczyć przedział ufności dla średniej wagi w populacji generalnej (poziom ufności 0.96)
+# c) wyznaczyć przedział ufności dla odchylenia standardowego wagi w populacji generalnej (poziom ufności 0.99)
+# d) na poziomie istotności 0.05 zweryfikować hipotezę, że średnia waga w populacji generalnej wynosi 77 kg
 
-#Zadanie 2
 # a) czy zgodna z rozkladem normalnym
-
 # H0 -> rozkład wagi mężczyzn w pop.gen jest normalny 
 # H1 -> rozkład wagi mężczyzn w pop.gen nie jest normalny 
-
 shapiro.test(Ankieta.M$`Waga [kg]`)
 # Shapiro-Wilk normality test
 # alpha = 0.01
-
 # data:  Ankieta.M$`Waga [kg]`
 # W = 0.97607, p-value = 0.07602
-
 # jeśli alfa >= p, to odrzucamy hipotezę H0 na korzyść hipotezy alternatywnej, 
 # jeśli alfa < p, to nie ma podstaw do odrzucenia hipotezy
-
 # alpha = 0.01   vs.   p-value = 0.07602
-
-
 # alpha < p-value --> nie ma podstaw do odrzucenia hipotezy zero!!!!
 # Można wyznaczać przedziały ufności i weryfikować hipotezy parametryczne  
 # dla wagi mężczyzn w pop.gen
 # zalozenie spelnione
-
 # b) przedziały ufności
-
 t.test(Ankieta.M$`Waga [kg]`, conf.level=0.96)
 # Przedział liczbowy (71.39718 76.62991) z prawdopodobieństwem 0.96
-
-
 # c)
-
 przedzial.odchylenie = function(x, ufnosc)
 {
   n = length(x)
@@ -72,18 +63,13 @@ przedzial.odchylenie = function(x, ufnosc)
     ocena.gorna = sqrt(licznik/kwartyl.2)
   )
 }
-
 # c 
 przedzial.odchylenie(Ankieta.M$`Waga [kg]`, 0.99)
 #ocena.dolna ocena.gorna
 # 10.35606    15.08749
-
-
 # d
-
 t.test(Ankieta.M$`Waga [kg]`,conf.level = 0.05, mu = 77)
 #One Sample t-test
-
 #data:  Ankieta.M$`Waga [kg]`
 #t = -2.3769, df = 95, p-value = 0.01946
 #alternative hypothesis: true mean is not equal to 77
@@ -93,12 +79,9 @@ t.test(Ankieta.M$`Waga [kg]`,conf.level = 0.05, mu = 77)
 #  mean of x 
 #74.01354 
 
-# -------------------------------------------------------
-
-#Zadanie 2 
+# Zadanie 2 
 # a) 
 # Test zgodności Shapiro-Wilka 
-
 #H0: waga w grupie mezczyzn w pop. generalnej ma rozklad normalny 
 #H1: ~H0 
 shapiro.test(Ankieta.M$Waga) 
@@ -108,24 +91,18 @@ shapiro.test(Ankieta.M$Waga)
 # tzn. na poziomie istotności 0.01 różnice między rozkładem normalnym 
 # a rozkładem empirycznym nie są statystycznie istotne 
 # Można szacować średnią i odchylenie standardowe, założenie można uznać za spełnione  
-
 ggplot (Ankieta.M, aes(`Waga [kg]`)) +    
   geom_histogram (aes (y = ..density..), fill = "blue", col = "black", binwidth = 10) +   
   stat_function (fun = dnorm, args = list (mean (Ankieta.M$`Waga [kg]`), sd (Ankieta.M$`Waga [kg]`)), col = "red", size = 1.25)+   
   ylab ("Częstość")  
-
-#b) 
+#b)
 t.test(Ankieta.M$Waga, conf.level=0.96)  
-
 # Przedział liczbowy (71.39718, 76.62991) z prawdopodobieństwem 0.96 
 # obejmuje prawdziwą nieznaną średnią wagę mężczyzn w pop.gen  
-
 #c) 
 przedzial.odchylenie(Ankieta.M$Waga, 0.99)  
-
 # Przedział liczbowy (10.35606, 15.08749) na poziomie ufności 0.99 
 # obejmuje prawdziwe nieznane odchylenie standardowe wagi mężczyzn w pop.gen  
-
 #d) 
 # Test dla średniej 
 # H0: m=77 
@@ -137,32 +114,27 @@ t.test(Ankieta.M$Waga, mu=77)   # alternatywa
 # Wniosek: alfa = 0.05 >= p, więc odrzucamy hipotezę H0 na korzyść hipotezy alternatywnej, 
 # tzn. na poziomie istotności 0.05 prawdziwa średnia waga mężczyzn w pop.gen 
 # różni się istotnie od 77 kg
+# -----------------------------------------------------------------------------------------------------------
 
-# -----------------------------------------------------
+# Zadanie 3 - Wylosowaną grupę 10 osób chorujących na nadciśnienie tętnicze poddano dwukrotnemu pomiarowi ciśnienia krwi przed podaniem i
+# po podaniu pewnego leku, testowanego pod kątem skuteczności obniżania ciśnienia. Wartości ciśnienia skurczowego zawiera tabela
 
+# Przed podaniem leku: 158 160 155 170 166 173 167 180 168 173
+# Po podaniu leku 140 155 150 167 170 162 157 163 158 175
 
-#Zadanie 3
+# Na poziomie istotności 0.05 sprawdzić, czy leczenie jest skuteczne (utworzyć pomocnicze zmienne Przed i Po, sprawdzić niezbędne założenie).
 
 # roznica -> proba zalezna - 10 pspb zbadanych przed i 10 zbadanych po
-
 przed=c(58, 160, 155, 170, 166, 173, 167, 180, 168, 173)
 po = c(140, 155, 150, 167, 170, 162, 157, 163, 158, 175)
-
 # alpha = 0.05
-
 shapiro.test(przed-po)
 #data:  przed - po
 #W = 0.57851, p-value = 3.07e-05
-
 # H0 -> srednia przed - srednia po = 0
 # H1 -> srednia przed - srednia po jest wieksza
-
 t.test(przed-po, alternative = "greater")
-
-
 # leczenie skuteczne
-
-# -----------------------------------------------------
 #Zadanie 3 
 # Próby zależne 
 przed=c(158, 160, 155, 170, 166, 173, 167, 180, 168, 173) 
@@ -170,7 +142,6 @@ po=c(140, 155, 150, 167, 170, 162, 157, 163, 158, 175)
 # Test zgodności Shapiro-Wilka (wersja skrócona) 
 shapiro.test(przed-po) 
 # Rozkład różnic ciśnienia nie różni się istotnie od rozkładu normalnego
-
 # Test dla dwóch średnich w próbach zależnych 
 # H0: m.Przed-m.Po = 0 
 # H1: m.Przed-m.Po > 0
@@ -180,28 +151,21 @@ t.test(przed-po, alternative = "greater")
 # Wniosek: alfa = 0.05 >= p, więc odrzucamy hipotezę H0 na korzyść hipotezy alternatywnej, 
 # tzn. na poziomie istotności 0.05 w pop.gen średnia ciśnienia tętniczego przed podaniem  
 # leku jest istotnie większa niż po podaniu leku (leczenie jest skuteczne)
-# -----------------------------------------------------
+# -----------------------------------------------------------------------------------------------------------
 
+# Zadanie 4 - Używając zmiennej M.zamieszkania oraz funkcji table i prop.test
+# a) wyznaczyć przedział ufności dla odsetka studentów mieszkających na stancji w populacji generalnej (poziom ufności 0.96);
+# b) na poziomie istotności 0.05 zweryfikować hipotezę, że w akademiku mieszka 40 % studentów.
 
-#Zadanie 4
 # wskaznik struktury
-
-
 table(Ankieta$M.zamieszkania)
-
-
 # a)
 prop.test(21, 120,
           conf.level = 0.96)
-
 # wynik: przedzial: 0.1117629 0.2615617
-
 # b)
 prop.test(43, 120, p = 0.4)
-
 # wartosc statystyki tekstowej (hi-kwadrat)
-
-# -----------------------------------------------------
 #Zadanie 4 
 table(Ankieta$M.zamieszkania) 
 # a)  
@@ -209,7 +173,6 @@ table(Ankieta$M.zamieszkania)
 prop.test(21, 120, conf.level = 0.96)  
 # Przedział liczbowy (0.1117629, 0.2615617) z prawdopodobieństwem 0.96 
 # obejmuje prawdziwy nieznany odsetek liczby osób w pop.gen. mieszkający na stancji
-
 # b) 
 # Prawdziwy nieznany odsetek w pop.gen oznaczamy literą p 
 # Test dla wskaźnika struktury  
@@ -221,22 +184,25 @@ prop.test(43, 120, p=0.4)
 # Wniosek: alfa = 0.05 < p, więc nie ma podstaw do odrzucenia hipotezy H0, 
 # tzn. na poziomie istotności 0.05 w pop.gen odsetek studentów mieszkających w akademiku 
 # nie różni się istotnie od 0.4
-# -----------------------------------------------------
+# -----------------------------------------------------------------------------------------------------------
 
-#Zadanie 5 51
+# Zadanie 5 - W populacji generalnej
+# a) wyznaczyć przedział ufności dla odsetka absolwentów Liceum Ogólnokształcącego (RM) (poziom ufności 0.97);
+# b) na poziomie istotności 0.01 zweryfikować hipotezę, że Technikum Informatyczne ukończyło mniej niż 35% studentów.
+
 table(Ankieta$Sz.średnia) 
 # a) 51
 prop.test(51, 120, conf.level = 0.97)  
-
 # Przedział liczbowy  0.3278395 0.5280612
 # ? 
-
 # b) 39
 # p=0.35
 # p>0.35
 prop.test(39, 120, p=0.35, alternative = "less") 
 # alfa = 0.01
+# -----------------------------------------------------------------------------------------------------------
+
 # X-squared = 0.22894
 # p-value = 0.3162
-
 # ? alfa = 0.01 < p -> więc nie ma podstaw do odrzucenia hipotezy H0
+# -----------------------------------------------------------------------------------------------------------
