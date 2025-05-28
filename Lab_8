@@ -1,43 +1,42 @@
+# TESTY DLA DWÓCH POPULACJI #
+# w każdym teście sformułować hipotezy, podać statystykę, poziom p oraz wniosek
 # rozklad normalny dla 1, 2 populacji !!!!
+
+# TESTY:
+# zgodności (rozkład normalny) – by (zmienna mierzalna, zmienna grupująca, shapiro.test)
+# parametryczne – test (data = zbiór danych, zmienna mierzalna~grupująca) lub test (zmienna mierzalna~grupująca, zbiór danych)
 
 # zgodności (rozkład normalny) – by (zmienna mierzalna, zmienna grupująca, shapiro.test)
 # jednorodnosc wariancji (test fishera) !!!!!!!
+# ----------------------------------------------------------------------------------------------------------------------
 
-
-# ------------------------------------------------
-
-#Zadanie 1 
+# Zadanie 1 - Używając zmiennej Waga porównać grupę kobiet i mężczyzn w populacji generalnej:
+# a) na poziomie istotności 0.01 sprawdzić założenie o normalności rozkładu w obu grupach testem Shapiro-Wilka;
+# b) na poziomie istotności 0.05 sprawdzić jednorodność wariancji w obu grupach testem Fishera (użyć var.test);
+# c) na poziomie istotności 0.05 zweryfikować testem Studenta hipotezę, że średnia wagi w populacji generalnej 
+# jest niższa w grupie kobiet (w przypadku jednorodnych wariancji wyłączyć poprawkę Welcha: var.equal = TRUE).
 
 # Poprawne porównanie średnich w dwóch populacjach wymaga sprawdzenia założeń: 
 # zgodności z rozkładem normalnym w obu populacjach oraz jednorodności wariancji 
 # (założenia obejmują trzy testy istotności)
-
 #zmienna mierzalna - waga
 #grupujaca - plec
 # sprawdzamy czy rozklad jest NORMALNY
 # zgodności (rozkład normalny) – by (zmienna mierzalna, zmienna grupująca, shapiro.test)
 by(Ankieta$`Waga [kg]`, Ankieta$Płeć, shapiro.test)
-
-
 # a)
-
 # poziom istotnosci = 0,01
 # 0,01 - alfa 
 # alfa < p-value w obu przypadkach tak musi byc
-
 #Ankieta$Płeć: K
 #data:  dd[x, ]
 #W = 0.95917, p-value = 0.4221
-
 #Ankieta$Płeć: M
 #data:  dd[x, ]
 #W = 0.97607, p-value = 0.07602
-
 #a) 
 # Testy zgodności Shapiro-Wilka 
 by(Ankieta$`Waga [kg]`,Ankieta$Płeć,shapiro.test)
-
-
 # Mężczyźni - patrz Lab_7 Zad2a  
 #Kobiety 
 #H0: waga w grupie kobiet w pop. generalnej ma rozklad normalny 
@@ -48,14 +47,10 @@ shapiro.test(Ankieta.K$Waga)
 # Wniosek: alfa=0.01<p.value więc nie ma podstaw do odrzucenia hipotezy H0 
 # tzn. na poziomie istotności 0.01 różnice między rozkładem normalnym 
 # a rozkładem empirycznym nie są statystycznie istotne 
-
-
 # b) TEST FISHERA
 # poziom istotnosci = 0,05
 # H0 wariancja w grupie kobiet = wariancji w grupie mezczyzn
 # H1 nie są sobie rowne (negacja)
-
-
 #b)
 # Prawdziwe odchylenie standardowe w pop.gen oznaczamy σ
 # Test Fishera jednorodności wariancji 
@@ -65,11 +60,8 @@ var.test(Ankieta$`Waga [kg]`~Ankieta$Płeć)
 # p-value
 # statystyka testowa
 # wniosek
-
 # F = 0.57434, num df = 23, denom df = 95, p-value = 0.1294
-
 # WNIOSEK: nie ma podstaw do odrzucenia H0 (wariancje sa jednorodne)
-
 #b)
 # Prawdziwe odchylenie standardowe w pop.gen oznaczamy σ
 # Test Fishera jednorodności wariancji 
@@ -81,19 +73,14 @@ var.test(Ankieta$Waga~Ankieta$Płeć)
 # Wniosek: alfa = 0.05 < p, więc nie ma podstaw do odrzucenia hipotezy H0, 
 # tzn. na poziomie istotności 0.05 w pop.gen wariancje wag dla obu płci  
 # nie różnią się istotnie (wariancje są jednorodne)
-
-
 #c)
 # poziom istotnosci = 0,05
 # 1) waga zgodna z rozkladem normalnym w grupie M i k (OK!)
 # ROZKLAD NORMALNY tylko w jednej grupie jest (wtedy test parametryczny)
 # 2) jednorodnosc wariancji (test fishera) !!!!!!! TRUE albo FALSE (TRUE)
-
 # w populacji generalnej jest niższa w grupie kobiet
-
 # H0: waga kobiet jest rowna grupie m
 # H1: m.K (srednia w grupie kobiet) < m.M (srednia w grupie mezczyzn)
-
 #c) 
 # Test dla dwóch średnich 
 # H0: m.K = m.M 
@@ -104,33 +91,25 @@ t.test(Ankieta$Waga~Ankieta$Płeć, alternative="less", var.equal=TRUE)
 # Wniosek: alfa = 0.05 >= p, więc odrzucamy hipotezę H0 na korzyść hipotezy alternatywnej,  
 # tzn. na poziomie istotności 0.05 w pop.gen średnia wagi w grupie kobiet  
 # jest istotnie mniejsza niż średnia wagi w grupie mężczyzn
+# ----------------------------------------------------------------------------------------------------------------------
 
-# ------------------------------------------------
-
-# Zadanie 2
+# Zadanie 2 - Na poziomie istotności 0.05 zweryfikować hipotezę, że średnia ocen z kursów w populacji generalnej zależy od płci 
+# (na tym samym poziomie istotności sprawdzić wszystkie niezbędne założenia).
 
 # poziom istotnosci = 0,05
 # średnia ocen z kursów w populacji generalnej zależy od płci
-
-
 # 1) SPRAWDZAMY CZY ROZKLAD JEST rozklad normalny
-
 # poziom istotnosci = 0,05
 # 0,05 - alfa 
 # alfa < p-value
-
 by(Ankieta$Średnia, Ankieta$Płeć, shapiro.test)
-
 # Ankieta$Płeć: K
 # p-value = 0.3079
 # Ankieta$Płeć: M
 #  p-value = 0.4261
 # 0,05 < p-value
-
 # JEST rozklad normalny
-
 # 2) SPRAWDZAMY CZY JEDNORODNOSC WARIANCJI
-
 # Test Fishera jednorodności wariancji 
 # H0: srednia K i srednia M sa rowne
 # H1: ~H0
@@ -140,22 +119,17 @@ var.test(Ankieta$Średnia~Ankieta$Płeć)
 # Wniosek: alfa = 0.05 < p, więc nie ma podstaw do odrzucenia hipotezy H0, 
 # tzn. na poziomie istotności 0.05 w pop.gen wariancje sredniej dla obu płci  
 # nie różnią się istotnie (wariancje są jednorodne)
-
 # TRUE
-
 #3)
-
 # Test dla dwóch średnich 
 # H0: srednia K i srednia M sa rowne
 # H1: ~H0
 t.test(Ankieta$Średnia~Ankieta$Płeć, var.equal=TRUE)
-
 # Statystyka testowa: t = -5.5803 
 # p-value = 7.77e-08 
 # Wniosek: alfa = 0.05 >= p, więc odrzucamy hipotezę H0 na korzyść hipotezy alternatywnej,  
 # tzn. na poziomie istotności 0.05 w pop.gen średnia wagi w grupie kobiet  
 # jest istotnie mniejsza niż średnia wagi w grupie mężczyzn
-
 # srednie takie same! 
 #------------------------------------------------------
 #Zadanie 2 
@@ -171,7 +145,6 @@ by(Ankieta$Średnia,Ankieta$Płeć,shapiro.test)
 # tzn. na poziomie istotności 0.05 różnice między rozkładem normalnym 
 # a rozkładem empirycznym nie są statystycznie istotne 
 # założenie można uznać za spełnione   
-
 #Mężczyźni 
 #H0: średnia ocen w grupie mężczyzn w pop. generalnej ma rozklad normalny 
 #H1: ~H0 
@@ -181,7 +154,6 @@ by(Ankieta$Średnia,Ankieta$Płeć,shapiro.test)
 # tzn. na poziomie istotności 0.05 różnice między rozkładem normalnym 
 # a rozkładem empirycznym nie są statystycznie istotne 
 # założenie można uznać za spełnione  
-
 # 2) 
 # Test Fishera jednorodności wariancji 
 # H0: σ^2.K = σ^2.M 
@@ -193,7 +165,6 @@ var.test(Ankieta$Średnia~Ankieta$Płeć)
 # tzn. na poziomie istotności 0.05 w pop.gen wariancje wag dla obu płci  
 # nie różnią się istotnie (wariancje są jednorodne) 
 ## Założenia są spełnione, można zrobić test t bez poprawki Welcha  
-
 #3) 
 # Test dla dwóch średnich 
 # H0: m.K = m.M 
@@ -204,45 +175,39 @@ t.test(Ankieta$Średnia~Ankieta$Płeć, var.equal=TRUE)
 # Wniosek: alfa = 0.05 < p, więc nie ma podstaw do odrzucenia hipotezy H0, 
 # tzn. na poziomie istotności 0.05 w pop.gen średnia sredniej ocen w grupie kobiet  
 # nie rozni sie od tej w grupie mężczyzn
+# ----------------------------------------------------------------------------------------------------------------------
 
-#------------------------------------------------------
+# Zadanie 3 - Na poziomie istotności 0.03 zweryfikować hipotezę, że mężczyźni preferujący system inny niż Windows spędzają 
+# przed komputerem więcej godzin niż pozostali (na tym samym poziomie istotności sprawdzić wszystkie niezbędne założenia).
 
-#Zadanie 3
 # 1) SPRAWDZAMY CZY JEST TO ROZKLAD NORMALNY
 by(Ankieta.M$L.godzin, Ankieta.M$System, shapiro.test)
-
 # poziom istotnosci/alfa = 0,03
 # p-value = 0.03462
 # alfa < p-value 
 # jest to ROZKLAD NORMALNY
-
 # GRUPE MEZCZYZN DZIELIMY NA (wINDOWSIARZY I NIE windowsiarzy(iNNY))
-
-
 # 2) SPRAWDZAMY CZY JEDNORODNOSC WARIANCJI
-
 # Test Fishera jednorodności wariancji 
 # H0: rowne
 # H1: nie rowne
-
 var.test(Ankieta.M$L.godzin~Ankieta.M$System)
 # Statystyka testowa: F = 2.355
 # p-value = 0.02785
 # Wniosek: alfa = 0.03 < p, więc są podstawY do odrzucenia hipotezy H0, 
- 
 # różnią się istotnie (wariancje nie są jednorodne)
-
 # FALSE
-
 # H0:  = 
 # H1: inny > WINDOWS
 t.test(Ankieta.M$L.godzin~Ankieta.M$System, var.equal=FALSE, alternative="greater")  
-
 # Statystyka testowa: t = 1.5506
 # p-value = 0.0731
 # Wniosek: alfa = 0.03 < p, nie ma podstaw do odrzucenia
+# ----------------------------------------------------------------------------------------------------------------------
 
-#Zadanie 4 (bez rozkladu normalnego bedzie)
+# Zadanie 4 (bez rozkladu normalnego bedzie)
 
+# ----------------------------------------------------------------------------------------------------------------------
+# Zadanie 5
 
-#Zadanie 5
+# ----------------------------------------------------------------------------------------------------------------------
