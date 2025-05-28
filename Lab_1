@@ -1,23 +1,18 @@
-# zadanie 1
+# zadanie 1 - Obliczyć wartości następujących wyrażeń w środowisku R:
 
-# a)
-4 * 5^2 + log(30, 3)
+# a) 4 * 5^2 + log(30, 3)
+# b) 7^(1/5)
+# c) (6^(1/7))^(1/3)
+# ------------------------------------------------------------------------------------------------
 
-
-# b)
-7^(1/5)
-
-# c)
-(6^(1/7))^(1/3)
-
-#zadanie 2
+# zadanie 2 - Dane są macierze A i B. Zdefiniować macierze i obliczyć tam, gdzie to możliwe:
 
 # MACIERZ A
 
 # 1 sposob tworzenia macierzy
 W1 = c(3, 2, -1) # wiersz pierwszy
 W2 = c(4, 1, 0) # wiersz drugi
-A1 = rbind(W1, W2) # LACZYMY WIERSZE W CALOSC (w macierz)
+A1 = rbind(W1, W2) # łączymy wiersze w całośc (w macierz A)
 
 # 2 sposob tworzenia macierzy
 k1 = c(3, 4)
@@ -26,56 +21,54 @@ k3 = c(-1, 0)
 A2 = rbind(k1, k2, k3)
 
 # 3 sposob
-A = matrix(c(3, 4, 2, 1, -1, 0), 2, 3) # --> MACIERZ A 
+A = matrix(c(3, 4, 2, 1, -1, 0), 2, 3)
 
 # MACIERZ B
 
+# 1 sposob tworzenia macierzy
 W1 = c(7, 2, 12) # wiersz pierwszy
 W2 = c(-11, -6, 1) # wiersz drugi
 W3 = c(3, -2, 3) # wiersz trzeci
+B = rbind(W1, W2, W3) # łączymy wiersze w całośc (w macierz B)
 
-B = rbind(W1, W2, W3) # --> MACIERZ B
-
-# WYZNACZNIKI
-# A
+# macierz A (wyznacznik)
 det(A) # --> nie wyjdzie bo musi byc kwadrtatowa maciewrz
 
-# B
+# macierz B (wyznacznik)
 det(B) # --> wyjdzie bo musi byc kwadrtatowa maciewrz
 
-# ODWROTNE MACIERZE
-# A
+# macierz A (odwrotne macierze)
 solve(A)
 
-# B
+# macierz B (odwrotne macierze)
 solve(B)
 
-# TRANSPONOWANE I WYZNACZNIKI
+# macierz A transponowana i ich wyznacznik
 t(A)
 det(t(A))
 
+# macierz B transponowana i ich wyznacznik
 t(B)
 det(t(B))
 
-# ILOCZYN MACIERZY A I B
+# iloczyn macierzy A i B
 A %*% B
 B %*% A # NIE WOLNO
 A %*% A # NIE WOLNO
 B %*% B
 
-# ILOCZYN SKALARNY
-
+# iloczyn skalarny
 # wiersz pierwszy macierzy A
 # W1 = c(3, 2, -1) 
 A[1,]
-
 # druga kolumna macierzy B
 # V2 = c(2, -6, -2)
 B[,2]
 
 A[1,] %*% B[,2]
+# ------------------------------------------------------------------------------------------------
 
-#zadanie 3
+# zadanie 3 - Wykorzystując zapis macierzowy rozwiązać układ równań (użyć /solve/)
 
 # 2 4 -3 1 # 71
 # 3 -2 8 -11 # -20
@@ -86,15 +79,29 @@ A = matrix(c(2, 3, 1, 4, 4, -2, 3, -3, -3, 8, 2, -5, 1, -11, 5, -3), 4, 4) # -->
 B = matrix(c(71, -20, 26, 49), 4, 1) # --> wyrazy wolne
 
 solve(A, B)
+# ------------------------------------------------------------------------------------------------
 
-#zadanie 4 (????????????????????????????????????????????????????????????????)
+# zadanie 4 - Utworzyć wektor kwadratów liczb od 1 do 80, a następnie ustalić, które cyfry oraz jak 
+# często występują na pozycji jedności w wyznaczonych kwadratach (użyć operatora modulo oraz
+# funkcji /summary/ i /factor/).
 
-v_1 <- (1:80)^2
-jed <- v_1 %% 10
-w <- factor(jed)
-wynik <- summary(w)
 
-#zadanie 5 (????????????????????????????????????????????????????????????????)
+# 1. Wektor kwadratów liczb od 1 do 80
+wektor_kwadratow <- (1:80)^2
+
+# 2. Wyciągnięcie ostatnich cyfr (modulo 10)
+ostatnie_cyfry <- kwadraty %% 10
+
+# 3. Przekształcenie na factor i podsumowanie
+w <- factor(ostatnie_cyfry, levels = 0:9)
+podsumowanie <- summary(factor(ostatnie_cyfry)
+# ------------------------------------------------------------------------------------------------
+
+#zadanie 5 - Utworzyć tablice trygonometryczne, w których zebrane będą informacje o wartościach
+# funkcji sinus, cosinus, tangens i cotangens dla kątów od 30 stopni do 60 stopni co 5stopni
+# (funkcje trygonometryczne w R przyjmują argumenty w radianach). W tym celu napisać funkcję rad 
+# (użyć function) do zamiany stopni na radiany (stała π w R ma nazwę pi), utworzyć wektor 
+# argumentów w radianach oraz ramkę danych Tablice (użyć data.frame).
 
 rad = function(stopnie) 
 {
@@ -110,10 +117,14 @@ tablica = data.frame(
   tan = tan(rad(stopnie)),
   ctan = 1/(tan(rad(stopnie)))
 )
+# ------------------------------------------------------------------------------------------------
 
-#zadanie 6 (????????????????????????????????????????????????????????????????)
+# zadanie 6 - Utworzyć wektor 40 łańcuchów znaków następującej postaci: litera.liczba, gdzie litera
+# to trzy duże litery X, Y, Z występujące cyklicznie, a liczba to kolejne liczby od 1 do 40 czyli
+# X.1 Y.2 Z.3 X.4 itd. Wykorzystać funkcję paste, która łączy napisy
 
 lit <- rep(c("X", "Y", "Z"), length.out=40)
 nums <- 1:40
 lan <- paste(lit, nums, sep=".")
 print(noquote(lan))
+# ------------------------------------------------------------------------------------------------
