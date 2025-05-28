@@ -1,35 +1,48 @@
+# ZMIENNE LOSOWE TYPU SKOKOWEGO #
+
+# WYBRANE ROZKŁADY TYPU SKOKOWEGO
+
+# 1) binom(x, n, p) --> rozkład dwumianowy (binomialny)
+# /x/ - liczba sukcesow, /n/ - liczba prób, /p/ - pp sukcesu
+# kiedy: policzyc liczbe sukcesow (x) w skonczonej liczbie niezaleznych prob (n) (sukces/porazka)
+# np.: rzucamy monetą 10 razy: ile razy wypadnie orzeł?
+
+# 2) geom(x, n, p) --> rozkład geometryczny
+# p - pp sukcesu
+# kiedy: ile porazek/niepowodzen przed pierwszym sukcesem 
+# np.: ile razy trzeba rzucić kostką, by pierwszy raz wypadła 6?
+
+# 3) pois(x, n, p) --> Rozkład Poissona
+# λ - średnia liczba zdarzeń na jednostkę czasu/przestrzeni
+# kiedy: policzyć liczbę zdarzeń w dnaym okresie gdy coś dzieje sie w czasie/przestrzeni z pewną średnią częstością λ
+# np.: Ile telefonów przychodzi na infolinię w ciągu godziny?
+
+# PREFIKSY
 # d - funkcja rozkladu
 # p - wartosc dystrybuanty
+# q – wartość kwantyla
+# r – generator liczb losowych 
 
-# geometryczny
-# mianowy
-# ktory z rozkladow wybrac
+# zadanie 1 - Prawdopodobieństwo, że przeciętny student nie zrobi pewnego zadania na kolokwium
+# wynosi 3/7. Nauczyciel wybiera przypadkowo 5 prac różnych studentów. Wyznaczyć rozkład
+# prawdopodobieństwa liczby osób spośród wybranych, które nie zrobiły tego zadania. 
+# Sprawdzić, czy rozkład jest dobrze określony.
 
-# zadanie 1
+# rozkład dwumianowy 
+# /x/ - liczba sukcesow --> 0:5 (od 0 (wszyscy zrobili zadanie) do 5 (nikt nie zrobił zadania))
+# /n/ - liczba prób --> 5 studentów (5 prac)
+# /p/ - pp sukcesu --> 3/7 (sukces: NIE zrobienie zadania)
 
-# dwumianowy
-# wszystkie mozliwosci: 5
-
-# 3/7 sukcesu
-# ktore nie zrobilo zadania
-# rozklad prawdopodobienstwa - wszystkie mozliwe prawdopodobienstwa ktore sa
-
-# w funkcji dbinom zadajemy: ilość sukcesów, ilość prób, prawdopodobieństwo sukcesu 
-
-dbinom(0,5,3/7)
-
-#Zadanie 1 
-# w funkcji dbinom zadajemy: ilość sukcesów, ilość prób, prawdopodobieństwo sukcesu 
-dbinom(0,5,3/7)
-#teraz przeprowadzimy analizę dla wszystkich możliwych sukcesów 
-dbinom(0:5,5,3/7) 
-#przedstawimy to w postaci macierzowej 
-rozklad=rbind(x_i=0:5, p_i=dbinom(0:5,5,3/7)) 
-#sprawdzamy czy wszystkie prawdopodobieństwa sumują się do 1 
+# Wyznaczyć rozkład prawdopodobieństwa liczby osób spośród wybranych, które nie zrobiły tego zadania. 
+dbinom(0:5,5,3/7)
+# Sprawdzić, czy rozkład jest dobrze określony (wszystkie pp sumują się do 1)
 sum(dbinom(0:5,5,3/7))
 
+# Przedstawimy to w postaci macierzowej 
+rozklad=rbind(x_i=0:5, p_i=dbinom(0:5,5,3/7))
 
-# zadanie 2
+
+# zadanie 2 - W pewnej rodzinie dwoje spośród trojga dzieci urodziło się w środę. Jakie jest prawdopodobieństwo takiego zdarzenia?
 
 # jakie jest prawdopodobienstwo ze sposrod 3 dzieci dwoje urodzi sie w srode 
 
