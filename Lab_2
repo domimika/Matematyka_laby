@@ -3,13 +3,15 @@
 # WYBRANE ROZKŁADY TYPU SKOKOWEGO
 
 # 1) binom(x, n, p) --> rozkład dwumianowy (binomialny)
-# /x/ - liczba sukcesow, /n/ - liczba prób, /p/ - pp sukcesu
+# /x/ - liczba sukcesow
+# /n/ - liczba prób
+# /p/ - pp sukcesu
 # kiedy: policzyc liczbe sukcesow (x) w skonczonej liczbie niezaleznych prob (n) (sukces/porazka)
 # np.: rzucamy monetą 10 razy: ile razy wypadnie orzeł?
 
 # 2) geom(x, n, p) --> rozkład geometryczny
-# p - pp sukcesu
-# kiedy: ile porazek/niepowodzen przed pierwszym sukcesem 
+# /n/ - liczba prób/porazek (przed pierwszym sukcesem), /p/ - pp sukcesu
+# kiedy: ile porazek niepowodzen /k/ przed pierwszym sukcesem 
 # np.: ile razy trzeba rzucić kostką, by pierwszy raz wypadła 6?
 
 # 3) pois(x, n, p) --> Rozkład Poissona
@@ -22,10 +24,11 @@
 # p - wartosc dystrybuanty
 # q – wartość kwantyla
 # r – generator liczb losowych 
+# ------------------------------------------------------------------------------------------------
 
-# zadanie 1 - Prawdopodobieństwo, że przeciętny student nie zrobi pewnego zadania na kolokwium
-# wynosi 3/7. Nauczyciel wybiera przypadkowo 5 prac różnych studentów. Wyznaczyć rozkład
-# prawdopodobieństwa liczby osób spośród wybranych, które nie zrobiły tego zadania. 
+# zadanie 1 - Prawdopodobieństwo, że przeciętny student nie zrobi pewnego zadania na kolokwium wynosi 3/7. 
+# Nauczyciel wybiera przypadkowo 5 prac różnych studentów.
+# Wyznaczyć rozkład prawdopodobieństwa liczby osób spośród wybranych, które nie zrobiły tego zadania. 
 # Sprawdzić, czy rozkład jest dobrze określony.
 
 # rozkład dwumianowy 
@@ -40,159 +43,114 @@ sum(dbinom(0:5,5,3/7))
 
 # Przedstawimy to w postaci macierzowej 
 rozklad=rbind(x_i=0:5, p_i=dbinom(0:5,5,3/7))
+# ------------------------------------------------------------------------------------------------
 
+# zadanie 2 - W pewnej rodzinie dwoje spośród trojga dzieci urodziło się w środę. 
+# Jakie jest prawdopodobieństwo takiego zdarzenia?
 
-# zadanie 2 - W pewnej rodzinie dwoje spośród trojga dzieci urodziło się w środę. Jakie jest prawdopodobieństwo takiego zdarzenia?
-
-# jakie jest prawdopodobienstwo ze sposrod 3 dzieci dwoje urodzi sie w srode 
-
-# wszystkie proby: 3 
-
-# sukcesy: 2
-
-# prawdopodobienstwo: 1/7
+# rozkład dwumianowy 
+# /x/ - liczba sukcesow --> 2 (2 z 3)
+# /n/ - liczba prób --> 3 (3 dzieci)
+# /p/ - pp sukcesu --> 1/7 (sukces: urodzenie się w środę)
 
 dbinom(2,3,1/7)
+# ------------------------------------------------------------------------------------------------
 
-# zadanie 3
-# geometryczny - liczba sukcesow
+# KOLOKWIUM #
+# zadanie 3 - Prawdopodobieństwo awarii pewnego urządzenia podczas uruchomiania wynosi 0.003. 
+# Obliczyć prawdopodobieństwo, że pierwsza awaria zdarzy się przy szóstym włączeniu.
 
-#Zadanie 3 ------------------------------------------------------------------- (bedzie na kolokwium) 
-#w funkcji dgeom zadajemy: ilość porażek, prawdopodobieństwo sukcesu 
-#P(X=5) pięć porażek bo szósty jest sukces 
+# rozkład geometryczny
+# /n/ - liczba prób/porażek (przed pierwszym sukcesem) --> 5 (bo szósty to awaria (sukces)
+# /p/ - pp sukcesu --> 0.003 (sukces: awaria)
+# kiedy: ile porazek/niepowodzen przed pierwszym sukcesem 
+
 dgeom(5,0.003)
+# ------------------------------------------------------------------------------------------------
 
-# zadanie 4
-# geometryczny - liczba porazek
+# zadanie 4 - W skład pewnej wtryskarki wchodzi 300 elementów określonego rodzaju. 
+# Prawdopodobieństwo uszkodzenia w ciągu miesiąca każdego z tych elementów wynosi 0.002 
+# i nie zależy od stanu pozostałych. Obliczyć prawdopodobieństwo uszkodzenia w ciągu miesiąca:
+# a) dokładnie trzech elementów,
+# b) nie więcej niż trzech elementów.
+# W obu podpunktach obliczyć przybliżenie rozkładem Poissona.
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# ------------------------------------------------------------------------------------------------
 
-# prawdopodobienstwo uszkodzenia: 0.002
+# zadanie 5 - Wadliwość produkowanych w pewnej firmie kości pamięci wynosi 0.4%. 
+# Pobrano losowo do kontroli partię 600 kości pamięci. 
+# Obliczyć prawdopodobieństwo, że liczba uszkodzonych kości pamięci jest większa niż 3.
 
-# liczba elementow: 300
+# rozkład dwumianowy (binomialny)
+# /x/ - liczba sukcesow --> liczba uszkodzonego sprzetu (od 4 do 600)
+# próba - sprawdzenie jednego sprzetu
+# /n/ - liczba prób --> 600 (liczba sprzetu do kontroli)
+# sukces - sprzezt jest wadliwy
+# porazka - sprzezt nie jest wadliwy
+# /p/ - pp sukcesu --> 0.4% = 0.004 (sukces: uszkodzony sprzęt)
 
-# a) uszkodzenie 3 elementów
-
-dbinom()
-
-# Poissona (trzy warunki musza byc spelnione)
-
-dpois(3, (300*0.002))
-
-# wyniki sa zbiezne wiec mozna korzystac z obu metod
-
-# b) uszkodzenie nie wiecej niz trzech elementow
-
-pbinom()
-
-# Poissona (trzy warunki musza byc spelnione)
-
-ppois()
-
-# wyniki sa zbiezne wiec mozna korzystac z obu metod
-
-# Obliczenia do wtryskarki:
-n_wtrysk <- 300
-p_wtrysk <- 0.002
-lambda_wtrysk <- n_wtrysk * p_wtrysk
-
-# a) Prawdopodobieństwo uszkodzenia dokładnie 3 elementów (przybliżone rozkładem Poissona)
-p_dokladnie_3 <- dpois(3, lambda_wtrysk)
-
-# b) Prawdopodobieństwo uszkodzenia nie więcej niż 3 elementów (przybliżone rozkładem Poissona)
-p_nie_wiecej_niz_3 <- ppois(3, lambda_wtrysk)
-
-cat("\nPrawdopodobieństwo (dokładnie 3):", p_dokladnie_3)
-cat("\nPrawdopodobieństwo (nie więcej niż 3):", p_nie_wiecej_niz_3, "\n")
-
-# Prawdopodobieństwo, że liczba uszkodzonych kości będzie większa niż 3:
-p_uszkodzone_wiecej_niz_3 <- 1 - pbinom(3, 600, 0.004)
-
-cat("Prawdopodobieństwo (liczba uszkodzonych > 3):", p_uszkodzone_wiecej_niz_3, "\n")
-
-# zadanie 5
-
-# wadliwosc: 0.4%
-# liczba kosci pamieci: 600
-
-pbinon()
-
-# albo 
-
-sum(dbinon())
-
-#Zadanie 5 
-# P(X>3) = 0.2210252 
 sum(dbinom(4:600,600,0.004))
-# 1-F(3) = 1-P(X<=3) 
-1-pbinom(3,600,0.004)
-#lub 
-pbinom(3,600,0.004, lower.tail=FALSE)
-#lub 
-pbinom(3,600,0.004,0)
+# lub
+pbinom(3, 600, 0.004, lower.tail = FALSE)
+# ------------------------------------------------------------------------------------------------
 
-# zadanie 6
+# zadanie 6 - Rzucamy jednocześnie trzema monetami aż wypadną trzy orły. 
+# Jakie jest prawdopodobieństwo, że będziemy musieli rzucać więcej niż 5 razy?
 
-# geometryczny
-
-# prawdopodobienstwo ze wypadna trzy orly: 1/8
-
-# liczba sukcesow: 6*7*8*...
-
-# liczba porazek: 4
-
-pgeom(4,1/8,0)
-
-#Zadanie 6  
-
-# geometryczny
+# rozkład geometryczny
+# /n/ - liczba prób/porazek (przed pierwszym sukcesem) --> 4 bo rzut 1,2,3,4
+# /p/ - pp sukcesu --> 1/8 (sukces: wypadną trzy orły)
 
 1-pgeom(4,1/8) 
 #lub 
 pgeom(4,1/8,0)
+# ------------------------------------------------------------------------------------------------
 
-# zadanie 7
-# dwumianowy
-# n = 650 lamp wszytskie mozliwosci
+# zadanie 7 - Pewne urządzenie zawiera 650 lamp. Prawdopodobieństwo przepalenia dowolnej lampy
+# w ciągu jednej doby pracy urządzenia jest jednakowe i wynosi 0.003. 
+# Obliczyć prawdopodobieństwo, że w ciągu jednej doby pracy urządzenia przepalą się co najmniej 2 lampy.
 
-# p = prawdopodobienstwo: 0.003
+# rozkład dwumianowy (binomialny)
+# /x/ - liczba sukcesow --> 1 (co najmniej 2 lampy)
+# /n/ - liczba prób/mozliwosci --> 650 (liczba lamp)
+# /p/ - pp sukcesu --> 0.003 (sukces: przypalenie lampy)
 
 1-pbinom(1, 650, 0.003)
-
-# P(X>=2) = 0.5806874 
+#lub 
 sum(dbinom(2:650,650,0.003)) 
-# 1-F(1) = 1-P(X<=1) 
-1-pbinom(1,650,0.003) 
-# P(X>1) 
+#lub 
 pbinom(1,650,0.003,0)
-
+# ------------------------------------------------------------------------------------------------
 #zadanie 7
-# n = 650 p= 0.003  lambda = n*p=1.95
+# n = 650 p= 0.003 lambda = n*p=1.95
 # ppois(conajmniej 2 , lambda)
 1 - ppois(1,1.95)
+# ------------------------------------------------------------------------------------------------
 
-# zadanie 8
+# zadanie 8 - Rzucamy jednoczenie dwiema kostkami aż na obu wypadnie co najmniej 5 oczek.
+# Obliczyć prawdopodobieństwo, że zdarzy się to:
+# a) w trzecim rzucie,
+# b) w co najmniej drugim, ale nie później niż w siódmym rzucie. 
 
-# geometryczny
-
-# prawdopodobienst: 1/9 (4/36)
-
-# a) w trzecim rzucie
+# a) rozkład geometryczny
+# /n/ - liczba prób/porazek (przed pierwszym sukcesem) --> 2 (1 rzut (porazka) 2 rzut (porazka) 3 rzut (sukces))
+# 6*6=36, kombinacje: 55,56,65,55, czyli 4/36=1/9
+# /p/ - pp sukcesu --> 1/9 (4/36) (sukces: wypada 5 oczek)
 
 dgeom(2,1/9)
 
-#ZADANIE 8
-#podpunkt a - w trzecim rzucie
-#6*6=36, kombinacje: 55,56,65,55, czyli 4/36=1/9
-dgeom(2,1/9)
+# b) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# /n/ - liczba prób/porazek (przed pierwszym sukcesem) --> 2, 3, 4, 5, 6, 7 (od 2 do 7)
+# 6*6=36, kombinacje: 55,56,65,55, czyli 4/36=1/9
+# /p/ - pp sukcesu --> 1/9 (4/36) (sukces: wypada 5 oczek)
 
-# b) w conajmniej drugim, ale nie pozniej niz w siodmym rzucie
+dgeom(2:7,1/9)
+# ------------------------------------------------------------------------------------------------
 
-# 2, 3, 4, 5, 6, 7 (od 2 do 7)
-
-
-
-
-# zadanie 9
-
-
+# zadanie 9 - W centrali telefonicznej jest 1000 linii, które działają niezależnie od siebie. 
+# Prawdopodobieństwo tego, że linia nie jest zajęta wynosi 0.88.
+# Obliczyć prawdopodobieństwo, że liczba zajętych linii różni się od 100 o mniej niż 15.
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# ------------------------------------------------------------------------------------------------
 
 
