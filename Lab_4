@@ -1,72 +1,61 @@
-# zadanie 2 (porzadkowanie i sprawdzanie danych)
+# ZARZĄDZANIE DANYMI #
 
-# a
-summary(Ankieta)
-Ankieta$Płeć = factor(Ankieta$Płeć)
-summary(Ankieta)
-Ankieta$M.zamieszkania = factor(Ankieta$M.zamieszkania)
-Ankieta$Sz.średnia = factor(Ankieta$Sz.średnia)
-Ankieta$System = factor(Ankieta$System)
-summary(Ankieta)
+# wywołanie kolumny w ramce np. Ankieta$Płeć
 
-# -------------------------------------------------------- 
-summary(Ankieta) 
+# --------------------------------------------------------------------------------------------------------------
+# Zadanie 1 - Opracowanie ankiety
+# --------------------------------------------------------------------------------------------------------------
+
+# Zadanie 2
+
+# a) wyświetlić podsumowanie danych przed i po faktoryzacji zmiennych niemierzalnych
+summary(Ankieta)
+# faktoryzacja zmiennych niemierzalnych
 Ankieta$Płeć=factor(Ankieta$Płeć) 
 Ankieta$M.zamieszkania=factor(Ankieta$M.zamieszkania) 
 Ankieta$Sz.średnia=factor(Ankieta$Sz.średnia) 
-Ankieta$System=factor(Ankieta$System) 
+Ankieta$System=factor(Ankieta$System)
 summary(Ankieta)
-# ----------------------------------------------------------
+
 # ----------------------------------------------------------
 #(usunac pierwszy # wykonac instrukcje i ponownie postawic 
 # Ankieta=Ankieta[-32,] #usuwanie wiersza nr 32
 # ----------------------------------------------------------
 
-# b
-
+# b) w ramce Ankieta utworzyć nową zmienną Średnia, zawierającą średnią ocen z kursów;
 Ankieta$Średnia = (Ankieta$Algebra + Ankieta$MSzS1 + Ankieta$Narz.inż + Ankieta$Prog1 + Ankieta$WdI)/5
 summary(Ankieta)
 
-#c
-
+# c) przenieść kolumny z ocenami z kursów do podzbioru Ankieta.kursy (użyć subset)
 Ankieta.kursy=subset(Ankieta,select=Algebra:WdI)
 summary(Ankieta)
+
 # Ankieta=Ankieta[,-(7:11)] #uzywamy tego raz (usuwamy kolumny)
 
-#d
-# trzy odchylenia standardowe - pozbyc sie danych wystajacyhc (rozniacych sie znaczaco od pozostalych), z rozkladu
-# normalnego mamy 3 populacje ktore wchodza w zakres (aby wynik odpowiednio dopasowac)
-
-
-zakres3sigm = function(x) {
+# d) napisać funkcję zakres3sigm, która zwróci dla dowolnej zmiennej ramkę danych z nagłówkami
+# lewy.kres / prawy.kres jako średnią minus / plus trzy odchylenia standardowe (użyć function, mean, sd, data.frame)
+zakres3sigm = function(x) 
+{
   lewy.kres = mean(x)-3*sd(x)
   prawy.kres = mean(x)+3*sd(x)
   data.frame(lewy.kres, prawy.kres)
 }
 
-
-#d 
-zakres3sigm=function(zmienna){   
-  lewy.kres=mean(zmienna)-3*sd(zmienna)   
-  prawy.kres=mean(zmienna)+3*sd(zmienna)   
-  data.frame(lewy.kres,prawy.kres) 
-}
-
-#e
-
+# e) dla zmiennej Średnia wyznaczyć ewentualne dane odstające i zastąpić je symbolem braku danych, a później średnią, 
+# zaokrągloną do części dziesiętnych (przy dużej liczbie danych użyć which)
 zakres3sigm(Ankieta$Średnia) # przedzial
 summary(Ankieta$Średnia) # zakres danych
 # na pierwszy rzut oka dane sa okej, bo mieszcza sie w przedziale
 
-#f
-
+# f) utworzyć podzbiory danych Ankieta.M i Ankieta.K dla mężczyzn i kobiet odpowiednio (użyć filter)
 Ankieta.M=subset(Ankieta,Płeć=="M")
 summary(Ankieta.M)
-
 Ankieta.K=subset(Ankieta,Płeć=="K")
 summary(Ankieta.K)
 
-#g
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# g) dla zmiennych Waga i Wzrost wyznaczyć ewentualne dane odstające dla obu płci, zastąpić je symbolem braku danych, 
+# a później średnią, zaokrągloną do części dziesiątych;
 
 zakres3sigm(Ankieta.K$`Waga [kg]`)
 summary(Ankieta.K$`Waga [kg]`)
@@ -76,7 +65,6 @@ summary(Ankieta.K$`Wzrost [cm]`)
 
 zakres3sigm(Ankieta.M$`Waga [kg]`)
 summary(Ankieta.M$`Waga [kg]`)
-
 
 zakres3sigm(Ankieta.M$`Wzrost [cm]`)
 summary(Ankieta.M$`Wzrost [cm]`)
@@ -88,10 +76,6 @@ summary(Ankieta.M$`Wzrost [cm]`)
 #Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 # 45.00   64.75   73.50   74.44   81.50  115.00 
 
-# faceci
-fix(Ankieta.M)
-summary(Ankieta.M$`Waga [kg]`)
-
 fix(Ankieta.M)
 zakres3sigm(Ankieta.M$`Waga [kg]`)
 summary(Ankieta.M$`Waga [kg]`)
@@ -100,19 +84,16 @@ summary(Ankieta.M$`Waga [kg]`)
 fix(Ankieta)
 zakres3sigm(Ankieta$`Waga [kg]`)
 summary(Ankieta$`Waga [kg]`)
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-#h
-
+# h) utworzyć nową zmienną L.g.kody, w której zostaną umieszczone 3 przedziały liczbowe odpowiadające ustalonym kategoriom:
+# krótko, średnio, długo (użyć cut) i wyświetlić liczności przedziałów
 Ankieta$L.g.kody=cut(Ankieta$L.godzin,c(0,5,10,24))
 summary(Ankieta$L.g.kody)
+# --------------------------------------------------------------------------------------------------------------
 
-
-# zadanie 3 (rysowanie histogramow)
-
-
-#Zadanie 3 
+# Zadanie 3 - Wyznaczyć histogramy dla zmiennych M.zamieszkania, Sz.średnia i System.
 ggplot (Ankieta, aes(M.zamieszkania)) +geom_bar (fill = "grey", col = "black") + ylab ("Liczność")
-
 ggplot (Ankieta, aes(Sz.średnia)) +geom_bar (fill = "orange", col = "black") + ylab ("Liczność")
-
 ggplot (Ankieta, aes(System)) +geom_bar (fill = "pink", col = "black") + ylab ("Liczność")
+# --------------------------------------------------------------------------------------------------------------
