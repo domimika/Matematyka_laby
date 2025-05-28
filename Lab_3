@@ -1,6 +1,18 @@
-# ROZKLAD TYPU CIOAGLEGO
+# ZMIENNE LOSOWE TYPU CIĄGŁEGO #
 
-# packages --> ggplot2 --> plots (dla rysowania wykresow trzeba wlaczyc ten pakiet)
+# WYBRANE ROZKŁADY TYPU CIĄGŁEGO:
+# norm
+# t
+# chisq
+# f
+
+# PREFIKSY:
+# d – funkcja gęstości
+# p – wartość dystrybuanty
+# q – wartość kwantyla
+# r – generator liczb losowych 
+
+(np. pnorm(x, m, ) – wartość dystrybuanty rozkładu normalnego z parametrami m i  w punkcie x)
 
 ------------------------------------------------ #a) rozkład normalny N(0,1) 
 ggplot(data.frame(x=c(-5,5)), aes(x))+   
