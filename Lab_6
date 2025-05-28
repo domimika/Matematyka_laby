@@ -1,9 +1,22 @@
+# TEST ZGODNOŚCI I ESTYMACJA DLA JEDNEJ POPULACJI #
+
+# w każdym teście:
+
+# sformułować hipotezy,
+# podać statystykę, 
+# poziom p oraz
+# wniosek.
+
 # rozklad normalny ;) 
-
 # rozkald nie normalny ;|
+# -------------------------------------------------------------------------------------------------------------------
 
-#Zadanie 1 
-# a)   im wiecej stopni swobody tym bardziej jest zbiezny do ukladu normalnego
+# Zadanie 1 - Wyświetlić w jednym układzie współrzędnych gęstości rozkładów stosowanych w statystyce matematycznej:
+# a) t Studenta (dt) dla stopni swobody: 1, 2, 10, 50 (przyjąć zakres od −4 do 4),
+# b) X^2 (dchisq) dla stopni swobody: 2, 10, 20, 50 (przyjąć zakres od −1 do 100).
+# Wyciągnąć wnioski odnośnie rozkładów granicznych.
+
+# a) im wiecej stopni swobody tym bardziej jest zbiezny do ukladu normalnego
 # blad popelniany nie az tak duzy
 ggplot (data.frame (x = c(-4, 4)), aes (x)) +    
   stat_function (fun = dt, args = 1, col = "blue", size = 1.25) +    
@@ -28,10 +41,11 @@ ggplot (data.frame (x = c(-1, 100)), aes (x)) +
 # od najmniejszej do najwiekszej (brazowa zaczyna prypominac rozklad normalny, mozna podmiany robic miedzy tymi rozkladami przy duzych danych)
 # Rozkład chi kwadrat jest zbieżny do rozkładu normalnego, 
 # więc rozkład chi kwadrat można zastąpić rozkładem normalnym dla dużej próby 
+# -------------------------------------------------------------------------------------------------------------------
 
-#Zadanie 2
+# Zadanie 2 - . Dla zmiennej Wzrost w grupie mężczyzn:
 
-#a 
+# a) dokonać wstępnej oceny zgodności z rozkładem normalnym w populacji generalnej na podstawie histogramu z gęstością teoretyczną (dnorm);
 ggplot (Ankieta.M, aes(`Wzrost [cm]`)) +    
   geom_histogram (aes (y = ..density..), fill = "blue", col = "black", binwidth = 5) +   
   stat_function (fun = dnorm, args = list (mean (Ankieta.M$`Wzrost [cm]`), sd (Ankieta.M$`Wzrost [cm]`)), col = "red", size = 1.25)+   
@@ -39,31 +53,27 @@ ggplot (Ankieta.M, aes(`Wzrost [cm]`)) +
 # ocena zgodnosci z rozkladem normalnym: NIE
 # w idealnym swiecie: srodkowy wykres slupkowy a czerwona linia przez jej srodek
 # narzedzie do weryfikacji czy jest poprawne i jest zgodne
-
 # populacja generalna: WE WSZYSTKICH ZADANIACH ZAKŁADAMY, ŻE POPULACJĄ GENERALNĄ SĄ WSZYSCY STUDENCI I-GO ROKU NA WI
 # na podstawie pewnej proby uogooniamy wnioski dla danej populacji generalnej - bo duzo danych duze koszty
 # chcemy zeby winiki byly zgodne z rozkladem normalnym
 
+# b) na poziomie istotności 0.05 sprawdzić założenie o normalności rozkładu testem Shapiro Wilka (użyć shapiro.test)
 
-#b  
+#Test zgodności Shapiro-Wilka 
+# Struktura/schemat testu w skrypcie:
 
-# Struktura testu w skrypcie:
+# H0: hipoteza zerowa - testujemy ja, dla niej budujemy tekst
+# H0:   zawsze parametr ktory testujemy jest zgodny z rozkladem normalnym
 
-# test zawsze ten schemat
-# H0:     hipoteza zerowa - testujemy ja, dla niej budujemy tekst
 # H1:     hipoteza alternatywana - skoro zakladamy ze spelnione, to potem zakladamy ze nie spolenione
+# Hipoteza zerowa H0: rozkład wzrostu mężczyzn w pop.gen jest normalny 
+
 # instrukcja w R (bez #) 
 # Statystyka testowa:  =      program wyrzuca komunikat jak przeprowadza test
 # p-value =      wartosc na podstawie ktorej podejmujemy decyzje, nie prawdziwa ale ze brak podstaw zeby ja odrzucic hipoteze zerowa
 # Wniosek:    jaka jest decyzja, uwazamy ze material dowody wspiera ho czy odrzucamy i przyjmujemy h1
 
 
-#b 
-#Test zgodności Shapiro-Wilka 
-
-# Struktura testu w skrypcie: 
-# H0:   zawsze parametr ktory testujemy jest zgodny z rozkladem normalnym
-# Hipoteza zerowa H0: rozkład wzrostu mężczyzn w pop.gen jest normalny 
 # na podstawie probki danych - decydujemy o populajci ogolnej
 
 # H1:  nie jest normalny
@@ -154,9 +164,10 @@ przedzial.odchylenie(Ankieta.M$Wzrost, 0.97)
 # poziom ufnosci - ufnosc
 # kwantyl we wzorze
 # poziom istotnosci i ufnosci - suma musi byc jeden
+# -------------------------------------------------------------------------------------------------------------------
 
-#Zadanie 3 -> testowanie
-# -----------------------------------------------------------
+# Zadanie 3 
+
 # a jak jes: ufnosci i wartosc bliska 1
 
 # test Shapiro-Wilka -> zawsze ten schemat
@@ -175,7 +186,6 @@ shapiro.test(Ankieta.M$L.godzin)
 # W = 0.95186, p-value = 0.001447
 # -----------------------------------------------------------
 
-
 #Zadanie 3 
 # Estymację stosujemy, gdy w zadaniu występuje poziom ufności 
 # Testy stosujemy, gdy w zadaniu występuje poziom istotności
@@ -191,14 +201,12 @@ shapiro.test(Ankieta$L.godzin)
 
 # Nie można szacować średniej i odchylenia standardowego
 
-
 #dodatkowo 
 ggplot (Ankieta, aes(L.godzin)) +    
   geom_histogram (aes (y = ..density..), fill = "blue", col = "black", binwidth = 3) +   
   stat_function (fun = dnorm, args = list (mean (Ankieta$L.godzin), sd (Ankieta$L.godzin)), col = "red", size = 1.25)+   
   ylab ("Częstość")
-
-# 
+# -------------------------------------------------------------------------------------------------------------------
 
 
 
