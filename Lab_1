@@ -1,11 +1,13 @@
 # zadanie 1 - Obliczyć wartości następujących wyrażeń w środowisku R:
+# a)
+4 * 5^2 + log(30, 3)
+# b)
+7^(1/5)
+# c)
+(6^(1/7))^(1/3)
+# ------------------------------------------------------------------------------
 
-# a) 4 * 5^2 + log(30, 3)
-# b) 7^(1/5)
-# c) (6^(1/7))^(1/3)
-# ------------------------------------------------------------------------------------------------
-
-# zadanie 2 - Dane są macierze A i B. Zdefiniować macierze i obliczyć tam, gdzie to możliwe:
+# zadanie 2 - Dane są macierze A i B. Zdefiniować macierze i obliczyć tam gdzie to możliwe:
 
 # MACIERZ A
 
@@ -21,7 +23,7 @@ k3 = c(-1, 0)
 A2 = rbind(k1, k2, k3)
 
 # 3 sposob
-A = matrix(c(3, 4, 2, 1, -1, 0), 2, 3)
+A = matrix(c(3, 4, 2, 1, -1, 0), 2, 3) # --> MACIERZ A 
 
 # MACIERZ B
 
@@ -66,7 +68,7 @@ A[1,]
 B[,2]
 
 A[1,] %*% B[,2]
-# ------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 # zadanie 3 - Wykorzystując zapis macierzowy rozwiązać układ równań (użyć /solve/)
 
@@ -79,12 +81,11 @@ A = matrix(c(2, 3, 1, 4, 4, -2, 3, -3, -3, 8, 2, -5, 1, -11, 5, -3), 4, 4) # -->
 B = matrix(c(71, -20, 26, 49), 4, 1) # --> wyrazy wolne
 
 solve(A, B)
-# ------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
-# zadanie 4 - Utworzyć wektor kwadratów liczb od 1 do 80, a następnie ustalić, które cyfry oraz jak 
-# często występują na pozycji jedności w wyznaczonych kwadratach (użyć operatora modulo oraz
-# funkcji /summary/ i /factor/).
-
+# zadanie 4 - Utworzyć wektor kwadratów liczb od 1 do 80, a następnie ustalić, 
+# które cyfry oraz jak często występują na pozycji jedności w wyznaczonych 
+# kwadratach (użyć operatora modulo oraz funkcji /summary/ i /factor/).
 
 # 1. Wektor kwadratów liczb od 1 do 80
 wektor_kwadratow <- (1:80)^2
@@ -95,13 +96,15 @@ ostatnie_cyfry <- kwadraty %% 10
 # 3. Przekształcenie na factor i podsumowanie
 w <- factor(ostatnie_cyfry, levels = 0:9)
 podsumowanie <- summary(factor(ostatnie_cyfry)
+
 # ------------------------------------------------------------------------------------------------
 
-#zadanie 5 - Utworzyć tablice trygonometryczne, w których zebrane będą informacje o wartościach
-# funkcji sinus, cosinus, tangens i cotangens dla kątów od 30 stopni do 60 stopni co 5stopni
-# (funkcje trygonometryczne w R przyjmują argumenty w radianach). W tym celu napisać funkcję rad 
-# (użyć function) do zamiany stopni na radiany (stała π w R ma nazwę pi), utworzyć wektor 
-# argumentów w radianach oraz ramkę danych Tablice (użyć data.frame).
+#zadanie 5 - Utworzyć tablice trygonometryczne, w których zebrane będą informacje 
+# o wartościach funkcji sinus, cosinus, tangens i cotangens dla kątów od 30 stopni 
+# do 60 stopni co 5stopni (funkcje trygonometryczne w R przyjmują argumenty w radianach). 
+# W tym celu napisać funkcję rad (użyć function) do zamiany stopni na radiany 
+# (stała π w R ma nazwę pi), utworzyć wektor argumentów w radianach oraz ramkę 
+# danych Tablice (użyć data.frame).
 
 rad = function(stopnie) 
 {
@@ -117,14 +120,15 @@ tablica = data.frame(
   tan = tan(rad(stopnie)),
   ctan = 1/(tan(rad(stopnie)))
 )
-# ------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
-# zadanie 6 - Utworzyć wektor 40 łańcuchów znaków następującej postaci: litera.liczba, gdzie litera
-# to trzy duże litery X, Y, Z występujące cyklicznie, a liczba to kolejne liczby od 1 do 40 czyli
-# X.1 Y.2 Z.3 X.4 itd. Wykorzystać funkcję paste, która łączy napisy
+# zadanie 6 - Utworzyć wektor 40 łańcuchów znaków następującej postaci: 
+# litera.liczba, gdzie litera to trzy duże litery X, Y, Z występujące cyklicznie,
+# a liczba to kolejne liczby od 1 do 40 czyli X.1 Y.2 Z.3 X.4 itd. Wykorzystać 
+# funkcję paste, która łączy napisy
 
 lit <- rep(c("X", "Y", "Z"), length.out=40)
 nums <- 1:40
 lan <- paste(lit, nums, sep=".")
 print(noquote(lan))
-# ------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
