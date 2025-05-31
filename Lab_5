@@ -2,12 +2,12 @@
 
 # RAMKA DANYCH: wywołanie zmiennej w ramce np. Ankieta.M$Waga
 
-# --------------------------------------------------------------------------------------------------------------------------------
-# Zadanie 1 - Napisać funkcję parametry.opisowe, która dla dowolnej zmiennej wyznaczy parametry opisowe 
-# ( do łączenia wartości użyć rbind):
-# srednia, kwartyl.1, mediana, kwartyl.3, min, max, rozstep.empiryczny = max(x) – min(x), rozstep.miedzykwartylowy,
-# wariancja, odchylenie.standardowe, wspolczynnik.zmiennosci = sd(x)/mean(x), wspolczynnik.asymetrii, wspolczynnik.skupienia 
-
+# ------------------------------------------------------------------------------
+# Zadanie 1 - Napisać funkcję parametry.opisowe, która dla dowolnej zmiennej 
+# wyznaczy parametry opisowe  do łączenia wartości użyć rbind):
+# srednia, kwartyl.1, mediana, kwartyl.3, min, max, rozstep.empiryczny = 
+# max(x) – min(x), rozstep.miedzykwartylowy, wariancja, odchylenie.standardowe,
+# wspolczynnik.zmiennosci = sd(x)/mean(x),wspolczynnik.asymetrii, wspolczynnik.skupienia 
 parametry.opisowe = function(x)
 {
   rbind(
@@ -21,7 +21,7 @@ parametry.opisowe = function(x)
     rozstep.miedzykwartylowy = IQR(x), # kwartyl.3 - kwartyl.1
     wariancja = var(x), # srednie kwadratowe odchylenie od sredniej
     odchylenie.standardowe = sd(x), # pierwiastek wariancji
-
+    
     wspolczynnik.zmiennosci = sd(x)/mean(x), # pierwiastek wariancji podzielic na srednia 
     # (ktora probka jest bardziej zroznicowana)
     
@@ -33,13 +33,15 @@ parametry.opisowe = function(x)
     # kurtoza, wartosc rowna 3 dla ukladu normalnego
     # mniej skupiony - ponizej 3
     # bardziej skupiony - ponizej 3
-    )
+  )
 }
-# --------------------------------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
-# Zadanie 1 - Dla zmiennych Waga i Wzrost w grupie mężczyzn:
-
-# ------------------------------------------------------------------------------------------------------------------------- WAGA
+# Zadanie 2 - Dla zmiennych Waga i Wzrost w grupie mężczyzn:
+# ------------------------------------------------------------------------- WAGA
+# a) wyznaczyć i zinterpretować parametry opisowe;
+# ------------------------------------------------------------------------------
+parametry.opisowe(Ankieta.M$`Waga [kg]`)
 # srednia - średnia waga zbadanych mężczyzn wynosi 74.01 kg 
 # kwartyl.1 - waga 25% mężczyzn nie przekracza 64.75 kg 
 # mediana - waga 50% mężczyzn nie przekracza 73.5 kg 
@@ -54,22 +56,24 @@ parametry.opisowe = function(x)
 # wspolczynnik.skupienia - rozkład wagi mężczyzn jest słabiej skupiony wokół średniej niż w rozkładzie normalnym, 
 # gdyż kurtoza jest mniejsza niż 3
 
-# a) wyznaczyć i zinterpretować parametry opisowe;
-parametry.opisowe(Ankieta.M$Waga)
-
 # b) narysować histogram (przyjąć szerokość klasy 10);
-hist(Ankieta.M$Waga)
+# ------------------------------------------------------------------------------
+hist(Ankieta.M$`Waga [kg]`)
 ggplot (Ankieta.M, aes(`Waga [kg]`)) +   geom_histogram (fill = "red", col = "black", binwidth = 10) +   ylab ("Liczność")
 
 # c) wyznaczyć i zinterpretować diagram łodyga i liście;
-stem(Ankieta.M$Waga)
+# ------------------------------------------------------------------------------
+stem(Ankieta.M$`Waga [kg]`)
 
 # d)  wyznaczyć i zinterpretować wykresy ramka-wąsy z podziałem ze względu na płeć
-boxplot(Ankieta.M$Waga)
+# ------------------------------------------------------------------------------
+boxplot(Ankieta.M$`Waga [kg]`)
 ggplot (Ankieta, aes (x = Płeć, y = `Waga [kg]` )) +   geom_boxplot (fill = c("lightpink","lightblue"), col = "black")
 
-
-# ------------------------------------------------------------------------------------------------------------------------- WZROST
+# ----------------------------------------------------------------------- WZROST
+# a) wyznaczyć i zinterpretować parametry opisowe;
+# ------------------------------------------------------------------------------
+parametry.opisowe(Ankieta.M$`Wzrost [cm]`)
 
 # srednia - średnia waga zbadanych mężczyzn wynosi 180.54 cm 
 # kwartyl.1 - waga 25% mężczyzn nie przekracza 177.00 cm
@@ -85,25 +89,28 @@ ggplot (Ankieta, aes (x = Płeć, y = `Waga [kg]` )) +   geom_boxplot (fill = c(
 # wspolczynnik.skupienia - rozkład wagi mężczyzn jest bardziej skupiony wokół średniej niż w rozkładzie normalnym, 
 # gdyż kurtoza jest większa niż 3
 
-# a) wyznaczyć i zinterpretować parametry opisowe;
-parametry.opisowe(Ankieta.M$`Wzrost [cm]`)
-
 # b) narysować histogram (przyjąć szerokość klasy 10);
-hist(Ankieta.M$Waga)
+# ------------------------------------------------------------------------------
+hist(Ankieta.M$`Wzrost [cm]`)
 ggplot (Ankieta.M, aes(`Wzrost [cm]`)) +   geom_histogram (fill = "red", col = "black", binwidth = 10) +   ylab ("Liczność")
 
 # c) wyznaczyć i zinterpretować diagram łodyga i liście; 
+# ------------------------------------------------------------------------------
 stem(Ankieta.M$`Wzrost [cm]`)
 
 # d)  wyznaczyć i zinterpretować wykresy ramka-wąsy z podziałem ze względu na płeć
+# ------------------------------------------------------------------------------
 boxplot(Ankieta.M$`Wzrost [cm]`)
 ggplot (Ankieta, aes (x = Płeć, y = `Wzrost [cm]` )) +   geom_boxplot (fill = c("lightpink","lightblue"), col = "black")
 # -------------------------------------------------------------------------------------------------------------------------------
 
-# Zadanie 3 - Dla zmiennej Wzrost w grupie mężczyzn wyznaczyć szereg rozdzielczy przedziałowy (krok – 10 cm, od minimum obciętego w dół z dokładnością do 10 cm, użyć table i cut) 
-# i utworzyć pomocnicze zmienne Wzrost.środki i Wzrost.wagi. Dla tak zgrupowanych danych obliczyć średnią i odchylenie standardowe stosując pomocniczą zmienną Wzrost.szereg (użyć rep).
-# Czy otrzymane średnia i odchylenie standardowe są takie same jak parametry dla zmiennej Wzrost w grupie mężczyzn bez grupowania?
-
+# Zadanie 3 - Dla zmiennej Wzrost w grupie mężczyzn wyznaczyć szereg rozdzielczy 
+# przedziałowy (krok – 10 cm, od minimum obciętego w dół z dokładnością do 10 cm, 
+# użyć table i cut) i utworzyć pomocnicze zmienne Wzrost.środki i Wzrost.wagi. 
+# Dla tak zgrupowanych danych obliczyć średnią i odchylenie standardowe stosując 
+# pomocniczą zmienną Wzrost.szereg (użyć rep). Czy otrzymane średnia i odchylenie
+# standardowe są takie same jak parametry dla zmiennej Wzrost w grupie mężczyzn bez grupowania?
+# ------------------------------------------------------------------------------
 table(cut(Ankieta.M$Wzrost,c(160,170,180,190,200)))
 Wzrost.środki=c(165,175,185,195) #srodki przedziualow
 Wzrost.wagi=c(8,42,42,4) #// ile elementow w przedziale
@@ -116,10 +123,7 @@ parametry.opisowe(Wzrost.szereg) # powstal sztuczny tymczasowy wektor i je sobie
 # dokladnie nie to samo ale nie istotnie odmienne wyniki ;) 
 # ale bledy sa (np odchylenie standardowe)
 # -------------------------------------------------------------------------------------------------------------------------------
-
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # Zadanie 4 - Dla zmiennej Średnia:
 # a) wyznaczyć i zinterpretować parametry opisowe;
-
 # b) wyznaczyć i zinterpretować wykresy ramka-wąsy z podziałem ze względu na płeć, miejsce zamieszkania i szkołę średnią.
 # -------------------------------------------------------------------------------------------------------------------------------
