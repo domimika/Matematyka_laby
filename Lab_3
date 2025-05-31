@@ -1,153 +1,61 @@
-# ZMIENNE LOSOWE TYPU CIĄGŁEGO #
-
-# WYBRANE ROZKŁADY TYPU CIĄGŁEGO: (nie ma znaczenia >, < czy >=, <= bo punktowe nie ma sensu)
-# norm --> standardowy rozkład Gaussa
-# /𝜇/ średnia
-# /𝜎/ odchylenie standardowe
-
-# t --> rozkład t-Studenta
-# liczba stopni swobody (df)
-
-# chisq --> rozkład chi-kwadrat
-
-
-# f --> rozkład F
-
-
-# PREFIKSY:
-# d – funkcja gęstości
-# p – wartość dystrybuanty
-# q – wartość kwantyla
-# r – generator liczb losowych 
-# -------------------------------------------------------------------------------------------------------
-
-# KOLOKWIUM
-# zadanie 1 - Obliczyć kwantyle: 
-
-# a) u(0.98) (odp. 2.053749)
-qnorm(0.98)
-
-# b) t(0.95, 18) (odp. 1.734064)
-qt(0.95,18)
-
-# c) X^2(0.975, 23) (odp. 38.07563)
-qchisq(0.975,23)
-
-# d) F(0.99, 5, 24) (odp. 3.89507)
-qf(0.99,5,24) 
-# -------------------------------------------------------------------------------------------------------
-
-# zadanie 2 - Zmienna losowa X ma rozkład normalny N(3,6). Obliczyć prawdopodobieństwo:
-
-# rozkład normalny N(3,6): 
-# srednia --> 3
-# odchylenie standardowe --> 6
-
-# a) P(X<5) (odp.: F(5) = 0.6305587)
-pnorm(5,3,6) 
-
-# b) P(X<4) (odp.: 1-F(4) = 0.4338162)
-1-pnorm(4,3,6) 
+# ------------------------------------------------------------------------------
+# BINOM
+# ------------------------------------------------------------------------------
+# 1) 
+# pp zakupu napoju: 0,25, n = 8 klientow, pp, x = ze dokladnie 3 kupi 
+sum(dbinom(3,5,1/4))
+# ------------------------------------------------------------------------------
+# 2)
+# x = 2 (zapomnij), n = 30 uczniow, pp = 0,1 pp na zapomniecie zadania (sukces)
+dbinom(2,30,0.1)
+# x > 2 (zapomni więcej niż 2)
+sum(dbinom(3:30,30,0.1))
 # lub
-pnorm(4,3,6,0) 
-
-# c) P(-1<X<=1) (odp.: F(1)-F(-1)= 0.1169488)
-pnorm(1,3,6)-pnorm(-1,3,6) 
-
-# d) P(4-0.5<=X<=4+0.5) (odp.: F(4.5)-F(3.5) = 0.06549957)
-pnorm(4.5,3,6)-pnorm(3.5,3,6) 
-
-# e) P(8-1<3X<8+1) (odp.: P(7/3<X<3) = F(3)-F(7/3) = 0.04423588)
-pnorm(3,3,6)-pnorm(7/3,3,6) 
-
-# f) P(X<=-1-7)+P(X>=-1+7) = F(-8)+1-F(6) = 0.341914  
-pnorm(6,3,6,0)+pnorm(-8,3,6) 
-
-# g) P(2X<3-4)+P(2X>3+4) = F(-1/2)+1-F(7/2) = 0.7466277
-pnorm(-1/2,3,6)+pnorm(7/2,3,6,0) 
-# -------------------------------------------------------------------------------------------------------
-
-# KOLOKWIUM
-# Zadanie 3 - Czas świecenia żarówek pochodzących z masowej produkcji jest zmienną losową X 
-# o rozkładzie normalnym N(200 h, 10 h). Oblicz, ile przeciętnie żarówek spośród 10000 świeci krócej niż 175 h.
-
-# P(X<175) 
-pnorm(175,200,10) 
-10000*pnorm(175,200,10) 
-
-#62 żarówki 
-round(10000*pnorm(175,200,10))
-# -------------------------------------------------------------------------------------------------------
-
-# Zadanie 4 - Przy założeniu, że wyniki w skoku wzwyż mężczyzn mają rozkład normalny z parametrami 2.25 m oraz 0.2 m, obliczyć:
-# a) ilu zawodników na 40 osiągnie w skoku wzwyż co najmniej 2.3 m,
-# b) jaki jest wynik uzyskany przez zawodników, poniżej którego jest 20% najsłabszych rezultatów? 
-
-# a) (odp.: 16 zawodników)
-pnorm(2.3,2.25,0.2,0) 
-40*pnorm(2.3,2.25,0.2,0) 
-
-# b) (P(X<x) = 0.2 x-kwantyl rzędu 0.2)
-qnorm(0.2,2.25,0.2) 
-#pułap 2.08 
-# -------------------------------------------------------------------------------------------------------
-
-# Zadanie 5 - Przyjmując, że opóźnienie pociągu do Poznania jest zmienną losową o rozkładzie normalnym N(13 min, 18 min), 
-# obliczyć prawdopodobieństwo, że pociąg, który miał przyjechać o 14.25 przyjedzie:
-# c) między 14.40 a 14.45,
-# d) po 14.50
-
-# c)
-pnorm(15,13,18,0)-pnorm(20,13,18,0)
-
-# d)
-pnorm(25,13,18,0)
-# -------------------------------------------------------------------------------------------------------
-
-# Zadanie 6 - Zmienna losowa ma rozkład N(25, 8). 
-# Wyznaczyć nieznane wartości całkowite k1, k2, k3, k4, jeżeli wiadomo, że zmienna ta przyjmuje wartość:
-a) mniejszą niż k1 z prawdopodobieństwem 0.5987,
-b) większą od k2 z prawdopodobieństwem 0.734,
-c) odchylającą się od średniej nie więcej niż o k3 z prawdopodobieństwem 0.468,
-d) odchylającą się od średniej nie mniej niż o k4 z prawdopodobieństwem 0.617.
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# -------------------------------------------------------------------------------------------------------
-
-
-
-# -------------------------------------------------------------------------------------------------------
----------------------------------------------------#a) rozkład normalny N(0,1) 
-
-ggplot(data.frame(x=c(-5,5)), aes(x))+   
-  stat_function(fun=dnorm,col="blue",size=1.25)+   
-  ylab("Gęstość rozkładu normalnego N(0,1)") 
-#u~N(0,1)
-
-# ROZKLAD POSTACI
-# N(0,1)
-# 0 - srednia,
-# 1 - odchylenie stardandowe
-
----------------------------------------------------#b) ROZKLAD TYPU T STUDENTA
-ggplot(data.frame(x=c(-5,5)), aes(x))+   
-  stat_function(fun=dt,args=list(df=18),col="green",size=1.25)+   
-  ylab("Gęstość rozkładu t Studenta")
-
-# df - > stopnie swobody
-
-----------------------------------------------------#c) ROZKLAD CHI KWADRAT
-ggplot(data.frame(x=c(-2,75)), aes(x))+   
-  stat_function(fun=dchisq,args=list(df=20),col="red",size=1.25)+   
-  ylab("Gęstość rozkładu chi kwadrat")
-
-# df - > stopnie swobody
-
-------------------------------------------------------#d) ROZKLAD FISHERA
-ggplot(data.frame(x=c(-2,7)), aes(x))+   
-  stat_function(fun=df,args=list(df1=5,df2=24),col="brown",size=1.25)+   
-  ylab("Gęstość rozkładu Fishera")
-
-# df - > stopnie swobody
-# -------------------------------------------------------------------------------------------------------
-
-
+1 - pbinom(2,30,0.1)
+# ------------------------------------------------------------------------------
+# 3)
+# n = 100 elementow, pp sukcesu (uszkodzenia): 0,015, x = 5:100
+sum(dbinom(5:100,100,0.015))
+# lub
+1 - pbinom(4, 100, 0.015)
+# ------------------------------------------------------------------------------
+# GEOM
+# ------------------------------------------------------------------------------
+# 1)
+# /n/ - liczba prób/porazek: 1,2,3 (zlapanie przy dokladnie 4 probie)
+# /p/ - pp sukcesu: 0.1 (sukces:zlapanie)
+dgeom(3, 0.1)
+# ------------------------------------------------------------------------------
+# 2)
+# /n/ - liczba prób/porazek: 6 (po dokladnie 6 nieudanych probach sukces)
+# /p/ - pp sukcesu: 0.2 (sukces: trafienie)
+dgeom(6, 0.2)
+# ------------------------------------------------------------------------------
+# 3) 
+# /n/ - liczba prób/porazek: 1-9 (9) (w pierwszych 10 probach)
+# /p/ - pp sukcesu: 0.02 (sukces: trafienie)
+pgeom(9, 1/50)
+# ------------------------------------------------------------------------------
+# POIS
+# ------------------------------------------------------------------------------
+# 1) 
+# x(d) - dokladnia liczba zdarzen/sukcesow = x = 2
+# λ (lambda) - średnia liczba zdarzeń na jednostkę czasu/przestrzeni 
+# = 4 zdarzenia na 1h
+dpois(2, 4)
+# ------------------------------------------------------------------------------
+# 2)
+# x(d) - dokladnia liczba zdarzen/sukcesow, p bo max 2 czyli x <= 2
+# λ (lambda) - średnia liczba zdarzeń na jednostkę czasu/przestrzeni 0,7 * 1 dzien
+# wiec 0,7 * 3
+ppois(3, 2.1)
+# ------------------------------------------------------------------------------
+#3) 
+# x(d) - liczba zdarzen/sukcesow: x > 8 (wiecej niz 8)
+# λ (lambda) - średnia liczba zdarzeń na jednostkę czasu/przestrzeni 
+# lambda = 6 * 1 dzien
+# P(X<= 8)
+ppois(8, lambda = 6)
+# P(x > 8) = 1 - P(X<= 8)
+1 - ppois(8, 6)
+# ------------------------------------------------------------------------------
