@@ -1,55 +1,72 @@
 # ZMIENNE LOSOWE TYPU SKOKOWEGO #
-
+# ------------------------------------------------------------------------------
 # WYBRANE ROZKŁADY TYPU SKOKOWEGO
-
+# ------------------------------------------------------------------------------
 # 1) binom(x, n, p) --> rozkład dwumianowy (binomialny)
-# /x/ - liczba sukcesow
-# /n/ - liczba prób
+# - NIEZALEZNE PROBY, WYNIKI: SUKCES/PORAZKA
+# /x/ - liczba sukcesow (dokladna) | p - mniejsza, rowna
+# /n/ - liczba niezaleznych prób z wynikami:sukces/porazka
 # /p/ - pp sukcesu
 # kiedy: policzyc liczbe sukcesow (x) w skonczonej liczbie niezaleznych prob (n) (sukces/porazka)
 # np.: rzucamy monetą 10 razy: ile razy wypadnie orzeł?
-
-# 2) geom(x, n, p) --> rozkład geometryczny
-# /n/ - liczba prób/porazek (przed pierwszym sukcesem), /p/ - pp sukcesu
+# ------------------------------------------------------------------------------
+# 2) geom(n, p) --> rozkład geometryczny 
+# - PIERWSZY SUKCES PO OKRESLONEJ LICZBIE PORAZEK
+# /n/ - liczba prób/porazek (przed pierwszym sukcesem)
+# /p/ - pp sukcesu
 # kiedy: ile porazek niepowodzen /k/ przed pierwszym sukcesem 
 # np.: ile razy trzeba rzucić kostką, by pierwszy raz wypadła 6?
-
-# 3) pois(x, n, p) --> Rozkład Poissona
-# λ - średnia liczba zdarzeń na jednostkę czasu/przestrzeni
-# kiedy: policzyć liczbę zdarzeń w dnaym okresie gdy coś dzieje sie w czasie/przestrzeni z pewną średnią częstością λ
+# ------------------------------------------------------------------------------
+# 3) pois(x, λ(lambda)) --> Rozkład Poissona
+# x(d) - dokladnia liczba zdarzen/sukcesow = x | (p) mniejsza lub rowna x
+# λ (lambda) - średnia liczba zdarzeń na jednostkę czasu/przestrzeni
+# kiedy: policzyć liczbę zdarzeń w dnaym okresie gdy coś dzieje sie w 
+# czasie/przestrzeni z pewną średnią częstością λ
 # np.: Ile telefonów przychodzi na infolinię w ciągu godziny?
 
 # PREFIKSY
-# d - funkcja rozkladu
-# p - wartosc dystrybuanty
-# q – wartość kwantyla
-# r – generator liczb losowych 
-# ------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+# d - funkcja rozkladu (DOKLADNA WARTOSC prawdopodobieństwo dla konkretnej wartości)
+# ------------------------------------------------------------------------------
+# p - wartosc dystrybuanty (NIE DOKLADNA, pp że zmienna (co najwyzej) ≤ x)
+# P(X<= 8) ppois(8, lambda = 6)
+# P(x > 8) = 1 - P(X<= 8) 1 - ppois(8, 6)
+# ------------------------------------------------------------------------------
+# q – wartość kwantyla (jaki wynik x (sukcesow) daje określone prawdopodobieństwo)
+# ------------------------------------------------------------------------------
+# r – generator liczb losowych (Gdy chcesz wygenerować dane losowe z danego 
+# rozkładu)
+# ------------------------------------------------------------------------------
 
-# zadanie 1 - Prawdopodobieństwo, że przeciętny student nie zrobi pewnego zadania na kolokwium wynosi 3/7. 
-# Nauczyciel wybiera przypadkowo 5 prac różnych studentów.
-# Wyznaczyć rozkład prawdopodobieństwa liczby osób spośród wybranych, które nie zrobiły tego zadania. 
-# Sprawdzić, czy rozkład jest dobrze określony.
+# zadanie 1 - Prawdopodobieństwo, że przeciętny student nie zrobi pewnego 
+# zadania na kolokwium wynosi 3/7.Nauczyciel wybiera przypadkowo 5 prac 
+# różnych studentów.Wyznaczyć rozkład prawdopodobieństwa liczby osób 
+# spośród wybranych, które nie zrobiły tego zadania.Sprawdzić, czy rozkład 
+# jest dobrze określony.
+# ------------------------------------------------------------------------------
 
-# rozkład dwumianowy 
-# /x/ - liczba sukcesow --> 0:5 (od 0 (wszyscy zrobili zadanie) do 5 (nikt nie zrobił zadania))
+# rozkład dwumianowy - NIEZALEZNE PROBY, WYNIKI: SUKCES/PORAZKA
+# /x/ - liczba sukcesow --> 0:5 (od 0 (wszyscy zrobili zadanie) do 5 (nikt 
+# nie zrobił zadania)) (jakie pp ze 2 nie zrobi: x = 2)
 # /n/ - liczba prób --> 5 studentów (5 prac)
 # /p/ - pp sukcesu --> 3/7 (sukces: NIE zrobienie zadania)
 
-# Wyznaczyć rozkład prawdopodobieństwa liczby osób spośród wybranych, które nie zrobiły tego zadania. 
+# Wyznaczyć rozkład prawdopodobieństwa liczby osób spośród wybranych, 
+# które nie zrobiły tego zadania.
 dbinom(0:5,5,3/7)
 # Sprawdzić, czy rozkład jest dobrze określony (wszystkie pp sumują się do 1)
 sum(dbinom(0:5,5,3/7))
-
+#teraz przeprowadzimy analizę dla wszystkich możliwych sukcesów 
+dbinom(0:5,5,3/7)
 # Przedstawimy to w postaci macierzowej 
 rozklad=rbind(x_i=0:5, p_i=dbinom(0:5,5,3/7))
 # ------------------------------------------------------------------------------------------------
 
-# zadanie 2 - W pewnej rodzinie dwoje spośród trojga dzieci urodziło się w środę. 
+# zadanie 2 - W pewnej rodzinie (dokladnie) dwoje spośród trojga dzieci urodziło się w środę. 
 # Jakie jest prawdopodobieństwo takiego zdarzenia?
-
-# rozkład dwumianowy 
-# /x/ - liczba sukcesow --> 2 (2 z 3)
+# ------------------------------------------------------------------------------
+# rozkład dwumianowy - NIEZALEZNE PROBY, WYNIKI: SUKCES/PORAZKA
+# /x/ - liczba sukcesow --> 2 (2 z 3) (dokladnie)
 # /n/ - liczba prób --> 3 (3 dzieci)
 # /p/ - pp sukcesu --> 1/7 (sukces: urodzenie się w środę)
 
@@ -58,14 +75,14 @@ dbinom(2,3,1/7)
 
 # KOLOKWIUM #
 # zadanie 3 - Prawdopodobieństwo awarii pewnego urządzenia podczas uruchomiania wynosi 0.003. 
-# Obliczyć prawdopodobieństwo, że pierwsza awaria zdarzy się przy szóstym włączeniu.
-
-# rozkład geometryczny
+# Obliczyć prawdopodobieństwo, że pierwsza awaria zdarzy się przy dokladnie szóstym włączeniu.
+# ------------------------------------------------------------------------------
+# rozkład geometryczny - PIERWSZY SUKCES PO OKRESLONEJ LICZBIE PORAZEK
 # /n/ - liczba prób/porażek (przed pierwszym sukcesem) --> 5 (bo szósty to awaria (sukces)
 # /p/ - pp sukcesu --> 0.003 (sukces: awaria)
 # kiedy: ile porazek/niepowodzen przed pierwszym sukcesem 
 
-dgeom(5,0.003)
+dgeom(5,0.003) # (odp.: 0.002955269)
 # ------------------------------------------------------------------------------------------------
 
 # zadanie 4 - W skład pewnej wtryskarki wchodzi 300 elementów określonego rodzaju. 
@@ -74,14 +91,28 @@ dgeom(5,0.003)
 # a) dokładnie trzech elementów,
 # b) nie więcej niż trzech elementów.
 # W obu podpunktach obliczyć przybliżenie rozkładem Poissona.
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# ------------------------------------------------------------------------------
+# Rozkład Poissona (x, lambda)
+# x - liczba zdarzen/sukcesow (dokladnie 3 czyli d)
+# λ - średnia liczba zdarzeń 300 * 0,002
+
+# a) dokładnie trzech elementów, (dokladna wartosc - d)
+300 * 0.002
+dpois(3, 0.6)
+
+# b) nie więcej niż trzech elementów (nie wiecej niz x <= 3)
+ppois(3, 300 * 0,002)
+# lub
+1 - pbinom(3, 600, 0.004)
 # ------------------------------------------------------------------------------------------------
 
 # zadanie 5 - Wadliwość produkowanych w pewnej firmie kości pamięci wynosi 0.4%. 
 # Pobrano losowo do kontroli partię 600 kości pamięci. 
 # Obliczyć prawdopodobieństwo, że liczba uszkodzonych kości pamięci jest większa niż 3.
+# ------------------------------------------------------------------------------
 
-# rozkład dwumianowy (binomialny)
+# rozkład dwumianowy (binomialny) - NIEZALEZNE PROBY, WYNIKI: SUKCES/PORAZKA
+# p - pytaja o wieksza niz 3
 # /x/ - liczba sukcesow --> liczba uszkodzonego sprzetu (od 4 do 600)
 # próba - sprawdzenie jednego sprzetu
 # /n/ - liczba prób --> 600 (liczba sprzetu do kontroli)
@@ -89,15 +120,23 @@ dgeom(5,0.003)
 # porazka - sprzezt nie jest wadliwy
 # /p/ - pp sukcesu --> 0.4% = 0.004 (sukces: uszkodzony sprzęt)
 
+# P(X>3) = 0.2210252 
 sum(dbinom(4:600,600,0.004))
-# lub
-pbinom(3, 600, 0.004, lower.tail = FALSE)
-# ------------------------------------------------------------------------------------------------
+
+# 1-F(3) = 1-P(X<=3) 
+1-pbinom(3,600,0.004) 
+#lub 
+pbinom(3,600,0.004, lower.tail=FALSE) 
+#lub 
+pbinom(3,600,0.004,0)
+# ------------------------------------------------------------------------------
 
 # zadanie 6 - Rzucamy jednocześnie trzema monetami aż wypadną trzy orły. 
 # Jakie jest prawdopodobieństwo, że będziemy musieli rzucać więcej niż 5 razy?
+# ------------------------------------------------------------------------------
 
-# rozkład geometryczny
+# rozkład geometryczny - PIERWSZY SUKCES PO OKRESLONEJ LICZBIE PORAZEK
+# p - PYTAJA O WIECEJ NIZ 5 RZUTY
 # /n/ - liczba prób/porazek (przed pierwszym sukcesem) --> 4 bo rzut 1,2,3,4
 # /p/ - pp sukcesu --> 1/8 (sukces: wypadną trzy orły)
 
@@ -106,51 +145,51 @@ pbinom(3, 600, 0.004, lower.tail = FALSE)
 pgeom(4,1/8,0)
 # ------------------------------------------------------------------------------------------------
 
-# zadanie 7 - Pewne urządzenie zawiera 650 lamp. Prawdopodobieństwo przepalenia dowolnej lampy
-# w ciągu jednej doby pracy urządzenia jest jednakowe i wynosi 0.003. 
-# Obliczyć prawdopodobieństwo, że w ciągu jednej doby pracy urządzenia przepalą się co najmniej 2 lampy.
-
+# zadanie 7 - Pewne urządzenie zawiera 650 lamp. Prawdopodobieństwo przepalenia 
+# dowolnej lampy w ciągu jednej doby pracy urządzenia jest jednakowe i wynosi 0.003. 
+# Obliczyć prawdopodobieństwo, że w ciągu jednej doby pracy urządzenia przepalą 
+# się co najmniej 2 lampy.
+# ------------------------------------------------------------------------------
 # rozkład dwumianowy (binomialny)
 # /x/ - liczba sukcesow --> 1 (co najmniej 2 lampy)
 # /n/ - liczba prób/mozliwosci --> 650 (liczba lamp)
 # /p/ - pp sukcesu --> 0.003 (sukces: przypalenie lampy)
 
-1-pbinom(1, 650, 0.003)
-#lub 
+# P(X>=2) = 0.5806874 
 sum(dbinom(2:650,650,0.003)) 
-#lub 
+# 1-F(1) = 1-P(X<=1) 
+1-pbinom(1,650,0.003) 
+# P(X>1) 
 pbinom(1,650,0.003,0)
-# ------------------------------------------------------------------------------------------------
-#zadanie 7
-# n = 650 p= 0.003 lambda = n*p=1.95
+# lub
+# n = 650 p= 0.003  lambda = n*p=1.95
 # ppois(conajmniej 2 , lambda)
 1 - ppois(1,1.95)
-# ------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 # zadanie 8 - Rzucamy jednoczenie dwiema kostkami aż na obu wypadnie co najmniej 5 oczek.
 # Obliczyć prawdopodobieństwo, że zdarzy się to:
 # a) w trzecim rzucie,
 # b) w co najmniej drugim, ale nie później niż w siódmym rzucie. 
-
-# a) rozkład geometryczny
+# ------------------------------------------------------------------------------
+# a) w trzecim rzucie,
 # /n/ - liczba prób/porazek (przed pierwszym sukcesem) --> 2 (1 rzut (porazka) 2 rzut (porazka) 3 rzut (sukces))
 # 6*6=36, kombinacje: 55,56,65,55, czyli 4/36=1/9
 # /p/ - pp sukcesu --> 1/9 (4/36) (sukces: wypada 5 oczek)
-
 dgeom(2,1/9)
 
-# b) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# /n/ - liczba prób/porazek (przed pierwszym sukcesem) --> 2, 3, 4, 5, 6, 7 (od 2 do 7)
-# 6*6=36, kombinacje: 55,56,65,55, czyli 4/36=1/9
-# /p/ - pp sukcesu --> 1/9 (4/36) (sukces: wypada 5 oczek)
+# b) w co najmniej drugim, ale nie później niż w siódmym rzucie. 
+# od 2 do 7 czyli od 1 do 6 porażek
+sum(dgeom(1:6,1/9))
 
-dgeom(2:7,1/9)
 # ------------------------------------------------------------------------------------------------
 
 # zadanie 9 - W centrali telefonicznej jest 1000 linii, które działają niezależnie od siebie. 
 # Prawdopodobieństwo tego, że linia nie jest zajęta wynosi 0.88.
 # Obliczyć prawdopodobieństwo, że liczba zajętych linii różni się od 100 o mniej niż 15.
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# ------------------------------------------------------------------------------
+#prawdopodobieństwo sukceku (linia zajęta) = 0.12
+#ilość sukcesów między 86 a 114
+# ilość prób 1000
+sum(dbinom(86:114,1000,0.12))
 # ------------------------------------------------------------------------------------------------
-
-
