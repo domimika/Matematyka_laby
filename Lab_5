@@ -9,11 +9,10 @@
 # max(x) – min(x), rozstep.miedzykwartylowy, wariancja, odchylenie.standardowe,
 # wspolczynnik.zmiennosci = sd(x)/mean(x),wspolczynnik.asymetrii, wspolczynnik.skupienia 
 parametry.opisowe = function(x)
-{
-  rbind(
+{ rbind(
     srednia = mean(x), 
     kwartyl.1 = quantile(x, 0.25), # wartosc liczbowa ponizej kotra jest 25 procent populacji
-    mediana = median(x), # wartosc srodkowa
+    mediana = median(x), #  wartosc srodkowa
     kwartyl.3 = quantile(x, 0.75), # wartosc liczbowa ponizej kotra jest 75 procent populacji
     min = min(x),
     max = max(x),
@@ -21,27 +20,29 @@ parametry.opisowe = function(x)
     rozstep.miedzykwartylowy = IQR(x), # kwartyl.3 - kwartyl.1
     wariancja = var(x), # srednie kwadratowe odchylenie od sredniej
     odchylenie.standardowe = sd(x), # pierwiastek wariancji
-    
-    wspolczynnik.zmiennosci = sd(x)/mean(x), # pierwiastek wariancji podzielic na srednia 
+    wspolczynnik.zmiennosci = sd(x)/mean(x),
+    wspolczynnik.skupienia=kurtosis(x))
+}
+  
+  # pierwiastek wariancji podzielic na srednia 
     # (ktora probka jest bardziej zroznicowana)
     
-    wspolczynnik.asymetrii = skewness(x), 
+    #wspolczynnik.asymetrii = skewness(x), 
     # czy wartosc jest dodatnia czy ujemna 
     # (dodatnia - prawostronna asymetria, ujemna - lewostronna asymetria)
     
-    wspolczynnik.skupienia = kurtosis(x) 
+    #wspolczynnik.skupienia = kurtosis(x) ,
     # kurtoza, wartosc rowna 3 dla ukladu normalnego
     # mniej skupiony - ponizej 3
     # bardziej skupiony - ponizej 3
-  )
-}
+
 # ------------------------------------------------------------------------------
 
 # Zadanie 2 - Dla zmiennych Waga i Wzrost w grupie mężczyzn:
 # ------------------------------------------------------------------------- WAGA
 # a) wyznaczyć i zinterpretować parametry opisowe;
 # ------------------------------------------------------------------------------
-parametry.opisowe(Ankieta.M$`Waga [kg]`)
+parametry.opisowe(Zaliczenie$Średnica)
 # srednia - średnia waga zbadanych mężczyzn wynosi 74.01 kg 
 # kwartyl.1 - waga 25% mężczyzn nie przekracza 64.75 kg 
 # mediana - waga 50% mężczyzn nie przekracza 73.5 kg 
