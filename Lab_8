@@ -133,7 +133,7 @@ t.test(Ankieta$Waga~Ankieta$Płeć, alternative="less", var.equal=TRUE)
 #H0: średnia ocen w grupie kobiet/mezczyzn w pop. generalnej ma rozklad normalny 
 #H1: ~H0 
 
-by(Ankieta$Średnia, Ankieta$Płeć, shapiro.test)
+by(Zaliczenie$Średnica, Zaliczenie$Kolor, shapiro.test)
 # Ankieta$Płeć: K --> Statystyka testowa: W=0.95258 , p-value = 0.3079
 # Ankieta$Płeć: M --> Statystyka testowa: W=0.98637, p-value = 0.4261
 # 0,05 < p-value --> JEST rozklad normalny, nie ma podstaw
@@ -148,7 +148,7 @@ by(Ankieta$Średnia, Ankieta$Płeć, shapiro.test)
 # H0: σ^2.K = σ^2.M (srednia K i srednia M sa rowne)
 # H1: ~H0 
 
-var.test(Ankieta$Średnia~Ankieta$Płeć)
+var.test(Zaliczenie$Średnia~Zaliczenie$Kolor)
 # Statystyka testowa: F = 1.3253
 # p-value = p-value = 0.3454
 
@@ -162,7 +162,7 @@ var.test(Ankieta$Średnia~Ankieta$Płeć)
 # H0: m.K = m.M (srednia K i srednia M sa rowne)
 # H1: ~H0
 
-t.test(Ankieta$Średnia~Ankieta$Płeć, var.equal=TRUE)
+t.test(Zaliczenie$Średnica~Zaliczenie$Kolor, var.equal=TRUE)
 # Statystyka testowa: t = 0.37918
 # p-value = 0.7052
 
