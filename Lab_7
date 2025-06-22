@@ -20,7 +20,8 @@
 # H1: m > 179 (jest wiekszy niz 179 cm)
 
 # ---------------------------------------------------------- SPRAWDZENIE WYNIKOW
-t.test(Ankieta.M$`Wzrost [cm]`,mu = 179,alternative ="greater")
+shapiro.test(Zaliczenie$Średnica)
+t.test(Zaliczenie$Średnica, mu = 77.4, alternative ="less")
 # Statystyka testowa: t = 2.4676 
 # p-value = 0.007696 
 # poziom istotności = 0.05
@@ -102,7 +103,7 @@ przedzial.odchylenie(Ankieta.M$`Waga [kg]`, 0.99)
 # ------------------------------------------------------------------------------
 # H0: m=77 
 # H1: m ≠ 77 lub  H1: m != 77 lub  H1: m =/= 77 lub  H1: ~H0 
-t.test(Ankieta.M$Waga, mu=77, alternative="two.sided") 
+t.test(Zaliczenie$Średnica, mu=77, alternative="two.sided")
 t.test(Ankieta.M$Waga, mu=77)   # alternatywa 
 # Statystyka testowa: t = -2.3769 
 # p-value = 0.01946 
